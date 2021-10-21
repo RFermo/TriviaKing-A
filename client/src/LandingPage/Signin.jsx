@@ -4,12 +4,12 @@ import { FaGoogle } from "react-icons/fa";
 
 const Signin = () => {
     return (
-        <div className="w-1/2 min-h-screen flex items-center xl:py-14 2xl:py-0 bg-white">
+        <div className="lg:w-1/2 min-h-screen flex items-center xl:py-14 2xl:py-0 bg-white">
 
             <div className="lg:w-4/5 xl:w-3/5 mx-auto">
                 <h1 className="text-6xl text-center font-georama text-purple-900 font-extrabold tracking-wider">Trivia King</h1>
                 
-                <div className="flex flex-col space-y-5 mt-16">
+                <div className="flex flex-col space-y-5 mt-16 mrgn-lr">
                     <div className="text-4xl font-inter font-extrabold">
                         Signup
                     </div>

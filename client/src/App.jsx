@@ -6,7 +6,7 @@ import Description from "./LandingPage/Description";
 const App = () => {
   return (
     <div id="LandingPage">
-      <div className="flex">
+      <div className=" flex-sm md:flex-md  lg:flex-lg">
 
         {/* Sign up */}
         <Signin />

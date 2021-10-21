@@ -37,4 +37,26 @@
   *:after {
     outline: none;
   }
+  .flex-sm{
+    flex-direction: column-reverse;
+    display: flex;
+  }
+  .flex-md{
+    flex-direction: column-reverse;
+    display: flex;
+  }
+  .flex-lg{
+    flex-direction: row;
+    display: flex;
+  }
+  .text-3rmtext{
+    font-size:2rem;
+  }
+  .min-h-screen-utr{
+    min-height: 60vh;
+  }
+  .mrgn-lr{
+    margin-left: 10px;
+    margin-right: 10px;
+  }
 }
