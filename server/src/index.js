@@ -3,7 +3,6 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const { verify } = require('jsonwebtoken');
-const { hash, compare } = require('bcryptjs');
 
 const server = express();
 
@@ -16,10 +15,17 @@ const corsConfiguration = {
 }
 
 server.use(cors(corsConfiguration))
-
 server.use(express.json());
 server.use(express.urlencoded({ extended: true }))
 
+// Routes
+const registerRoute = require('../Routes/register');
+const loginRoute = require('../Routes/login');
+
+server.post('/register', registerRoute);
+server.post('/login', loginRoute); 
+
+// Server
 server.listen(process.env.PORT, () =>
     console.log(`TriviaKing backend server (Express)\nPort: ${process.env.PORT}`)
 )
