@@ -13,13 +13,14 @@ server.use(cookieParser());
 const corsConfiguration = {
     origin: 'http://localhost:3000',
     credentials: true,
-}
+};
 
-server.use(cors(corsConfiguration))
+server.use(cors(corsConfiguration));
 
 server.use(express.json());
-server.use(express.urlencoded({ extended: true }))
+server.use(express.urlencoded({ extended: true }));
+
 
 server.listen(process.env.PORT, () =>
     console.log(`TriviaKing backend server (Express)\nPort: ${process.env.PORT}`)
-)
+);
