@@ -19,13 +19,7 @@ const Login = () => {
                 password: password
             });
 
-            if (response.data.message) {
-                setLoginStatus(response.data.message);
-            }
-
-            else {
-                setLoginStatus(response.data[0].username);
-            }
+            console.log(response.data);
         }
 
         catch (err) {

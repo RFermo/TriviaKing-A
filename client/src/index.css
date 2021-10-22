@@ -50,4 +50,8 @@
   *:after {
     outline: none;
   }
+
+  img {
+    color: transparent;
+  }
 }
