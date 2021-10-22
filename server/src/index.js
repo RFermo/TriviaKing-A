@@ -14,11 +14,15 @@ server.use(cookieParser());
 const corsConfiguration = {
     origin: 'http://localhost:3000',
     credentials: true,
-}
+};
 
-server.use(cors(corsConfiguration))
+
+server.use(cors(corsConfiguration));
+
+
 server.use(express.json());
-server.use(express.urlencoded({ extended: true }))
+server.use(express.urlencoded({ extended: true }));
+
 
 // Routes
 const registerRoute = require('../routes/register');
@@ -34,5 +38,6 @@ server.post('/protected', authToken, protectedRoute);
 
 // Server
 server.listen(process.env.PORT, () =>
-    console.log(`TriviaKing backend server (Express)\nURL: http://localhost:${process.env.PORT}`)
-)
+  console.log(`TriviaKing backend server (Express)\nURL: http://localhost:${process.env.PORT}`));
+);
+
