@@ -2,9 +2,9 @@ import { FaCheckSquare } from "react-icons/fa";
 
 const Description = () => {
     return (
-        <div className="w-1/2 min-h-screen bg-gradient-to-b from-black to-gray-700 flex items-center justify-center">
-            <div className="w-4/5 mx-auto">
-                <h1 className="text-white text-5xl text-center leading-relaxed font-inter">A unique trivia application that will test every fiber of your knowledge.</h1>
+        <div className="mx-auto lg:w-1/2 lg:min-h-screen bg-gradient-to-b from-purple-900 to-purple-700 lg:flex lg:items-center lg:justify-center">
+            <div className="w-4/5 mx-auto py-16 lg:py-0">
+                <h1 className="text-white text-4xl md:text-5xl text-center !leading-relaxed font-inter">A unique trivia application that will test every fiber of your knowledge.</h1>
 
                 <div className="flex flex-col space-y-5 mt-10">
                     <div className="flex space-x-4 items-center">

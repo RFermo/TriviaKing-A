@@ -1,21 +1,31 @@
-import Signin from "./LandingPage/Signin";
+import Register from "./LandingPage/Register";
 import Description from "./LandingPage/Description";
-
-// Design landing page for medium and smaller devices (component stacked on top of another)
+import Login from "./Login/Login";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 const App = () => {
   return (
-    <div id="LandingPage">
-      <div className="flex">
+    <Router>
+      <Switch>
+        <Route exact path="/">
+          <div id="LandingPage">
+            <div className="flex flex-col lg:flex-row">
 
-        {/* Sign up */}
-        <Signin />
+              {/* Sign up */}
+              <Register />
 
-        {/* Description */}
-        <Description />
+              {/* Description */}
+              <Description />
 
-      </div>
-    </div>
+            </div>
+          </div>
+        </Route>
+
+        <Route exact path="/login">
+          <Login />
+        </Route>
+      </Switch>
+    </Router>
   );
 }
  
