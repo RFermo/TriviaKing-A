@@ -3,7 +3,7 @@ const express = require('express');
 
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
-const { verify } = require('jsonwebtoken');
+// const { verify } = require('jsonwebtoken');
 const { authToken, refreshToken } = require('../routes/tokens');
 
 const server = express();
@@ -37,7 +37,8 @@ server.post('/refresh_token', refreshToken);
 server.post('/protected', authToken, protectedRoute);
 
 // Server
-server.listen(process.env.PORT, () =>
-  console.log(`TriviaKing backend server (Express)\nURL: http://localhost:${process.env.PORT}`));
-);
+
+server.listen(process.env.PORT, () => {
+  console.log(`TriviaKing backend server (Express)\nURL: http://localhost:${process.env.PORT}`);
+});
 

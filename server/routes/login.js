@@ -5,14 +5,12 @@ const {
     sendAccessToken, sendRefreshToken
 } = require('./tokens');
 
-const genericLoginMessage = 'Failed to login';
-
 const Login = async (req, res) => {
     const { username, password } = req.body;
     
     const user = await getUser(username, null)
     .then ( response => {
-        if (!response) res.send({ message: genericLoginMessage});
+        if (!response) res.send({ message: "User does not exist!"});
         return response;
     })
     .catch( error => {
@@ -25,7 +23,7 @@ const Login = async (req, res) => {
     .then( result => result)
     .catch( error => res.send({ message: `check password error: ${error}`}));
    
-    if (!authenticated) return res.send(genericLoginMessage);
+    if (!authenticated) return res.send({ message: "Incorrect password!"});
     
     const {id, email} = user;
     const accessToken = createAccessToken({id, email});

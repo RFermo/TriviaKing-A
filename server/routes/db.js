@@ -32,7 +32,7 @@ const registerUser = (username, email, hashedPassword, refreshToken) => {
     ];
     let query = mysql.format(sql, values);
     
-   return new Promise ( (resolve,reject) => {
+    return new Promise ( (resolve,reject) => {
         dbpool.query(query, (error, response) => {
             if (error) {
                 console.error(error);
