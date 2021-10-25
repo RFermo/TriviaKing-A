@@ -7,6 +7,16 @@ module.exports = {
       fontFamily: {
         inter: ['Inter', 'sans-serif'],
         georama: ['Georama', 'sans-serif']
+      },
+
+      inset: {
+        '1/20': '5%',
+        '1/10': '10%'
+      },
+
+      width: {
+        '2/7': '28.5714286%',
+        '5/7': '71.4285714%'
       }
     },
   },

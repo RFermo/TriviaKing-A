@@ -13,11 +13,12 @@ const sendAccessToken = (res, user, accessToken) => {
     res.send({
         accessToken,
         user: user.username,
-        email: user.email
+        email: user.email,
+        message: "User signed in!"
     });
 };
 
-const sendRefreshToken =  (res, refreshToken) => {
+const sendRefreshToken = (res, refreshToken) => {
     res.cookie('refreshtoken', refreshToken, {
         httpOnly: true,
         path: '/refresh_token'

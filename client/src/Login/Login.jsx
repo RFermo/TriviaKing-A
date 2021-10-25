@@ -1,13 +1,15 @@
-import { FaGoogle } from "react-icons/fa";
+import { FaGoogle, FaUser, FaKey } from "react-icons/fa";
 import Axios from "axios";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 const Login = () => {
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const [loginStatus, setLoginStatus] = useState("");
+    const [loginStatus, setLoginStatus] = useState("none");
+    const [incorrect, setIncorrect] = useState(false);
+    const history = useHistory();
 
     const loginUser = async (event) => {
 
@@ -19,7 +21,23 @@ const Login = () => {
                 password: password
             });
 
-            console.log(response.data);
+            const user_login_feedback = response.data.message;
+
+            if (user_login_feedback === "User signed in!") {
+
+                /* 
+                    Maybe do some token handling to prevent users from going back to login page if they are
+                    already logged in? 
+
+                    Let users stay logged in for a while even if they close the browser with the tokens?
+                */
+
+                history.push("/dashboard"); // If user successfully logs in, push him to dashboard page
+            }
+
+            else {
+                setLoginStatus(user_login_feedback);
+            }
         }
 
         catch (err) {
@@ -28,27 +46,27 @@ const Login = () => {
     };
 
     return (
-        <div className="h-screen flex justify-center items-center bg-gradient-to-tr from-purple-900 to-purple-700">
-            <div className="w-11/12 md:w-5/6 lg:w-4/5 2xl:w-3/5 flex flex-col lg:flex-row">
+        <div className="min-h-screen flex justify-center items-center bg-gradient-to-tr from-purple-900 to-purple-700">
+            <div className="w-5/6 lg:w-11/12 xl:w-4/5 2xl:w-3/5 flex flex-col lg:flex-row my-10 lg:my-0">
                 <div className="lg:w-1/2">
-                    <img className="h-[200px] md:h-[400px] lg:h-[570px] w-full object-cover rounded-tr-xl lg:rounded-tr-none rounded-tl-xl lg:rounded-bl-xl" src="https://cdn.pixabay.com/photo/2018/03/21/07/16/learning-3245793_960_720.jpg" alt="Light bulb" />
+                    <img className="h-[250px] md:h-[375px] lg:h-[620px] xl:h-[630px] w-full object-cover rounded-tr-xl lg:rounded-tr-none rounded-tl-xl lg:rounded-bl-xl" 
+                        src="https://cdn.pixabay.com/photo/2018/03/21/07/16/learning-3245793_960_720.jpg" 
+                        alt="Light bulb" 
+                    />
                 </div>
 
-                <div className="lg:w-1/2 md:h-[570px] bg-white rounded-br-xl rounded-bl-xl lg:rounded-bl-none lg:rounded-tr-xl py-4 md:py-8">
-                    <h1 className="text-4xl md:text-5xl text-center font-georama text-purple-900 font-extrabold tracking-wider">Trivia King</h1>
+                <div className="lg:w-1/2 lg:h-[620px] xl:h-[630px] bg-gray-100 rounded-br-xl rounded-bl-xl lg:rounded-bl-none lg:rounded-tr-xl py-8">
+                    <h1 className="text-4xl cursor-default md:text-5xl text-center font-georama text-purple-900 font-extrabold tracking-wider">Trivia King</h1>
 
-                    <div className="w-4/5 mx-auto flex flex-col space-y-2 md:space-y-5 mt-6">
-                        {/* <div className="text-2xl md:text-3xl font-inter font-extrabold">
-                            Login
-                        </div> */}
+                    <div className="w-4/5 mx-auto flex flex-col space-y-5 md:space-y-5 mt-10 lg:mt-6">
 
-                        <a href="/" className="border-2 rounded-lg border-black py-2.5 md:pl-4 fill-link hover:text-white">
+                        <a href="/" className="google-btn">
                             <div className="flex items-center justify-center md:justify-start space-x-3">
                                 <div>
-                                    <FaGoogle className="w-6 h-6"/>
+                                    <FaGoogle className="w-5 h-5 md:w-6 md:h-6"/>
                                 </div>
                                 
-                                <div className="text-lg font-inter">
+                                <div className="font-inter xl:text-lg">
                                     Continue with Google
                                 </div>
                             </div>
@@ -61,8 +79,9 @@ const Login = () => {
                         </div>
 
                         <form onSubmit={loginUser}>
-                            <div>
-                                <label className="text-lg font-inter font-bold">Username</label>
+                            <div className="relative">
+                                <label className="md:text-lg font-inter font-bold">Username</label>
+                                <FaUser className="absolute bottom-[11px] left-[20px]" />
                                 <input 
                                     className="input-field" 
                                     type="text"
@@ -71,25 +90,36 @@ const Login = () => {
                                 />
                             </div>
 
-                            <div className="mt-4">
-                                <label className="text-lg font-inter font-bold">Password</label>
+                            <div className="mt-4 relative">
+                                <label className="md:text-lg font-inter font-bold">Password</label>
+                                <FaKey className="absolute bottom-[11px] left-[20px]" />
                                 <input 
                                     className="input-field" 
                                     type="password"
                                     required={true}
                                     onChange={(e) => setPassword(e.target.value)}
                                 />
-                                <p className="mt-2.5 font-inter text-red-600">{loginStatus}</p>
                             </div>
 
-                            <div className="mt-6 md:mt-6">
-                                <button type="submit" className="sign-up-btn">
+                            <div className="mt-8 lg:mt-6">
+                                <button type="submit" className="sign-up-login-btn">
                                     LOGIN
                                 </button>
                             </div>
                         </form>
 
-                        <div className="text-sm font-inter font-light flex justify-center lg:justify-start space-x-2 pt-2">
+                        <div className={`bg-red-600 w-max p-2 rounded-md cursor-default ${loginStatus === "none" ? "hidden" : "block"}`}>
+                            <p className="font-inter text-gray-200">{loginStatus}</p>
+                        </div>
+
+                        <div className="text-sm font-inter flex space-x-2 font-light pt-1">
+                            <div>
+                                Forgot your password?
+                            </div>
+                            <Link to="/" className="underline font-bold inline-block">Click here</Link>
+                        </div>
+
+                        <div className="text-sm font-inter font-light flex justify-start space-x-2 pt-1">
                             <div>
                                 Don't have an account?
                             </div>

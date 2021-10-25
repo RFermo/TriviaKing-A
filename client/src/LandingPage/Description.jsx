@@ -4,7 +4,7 @@ const Description = () => {
     return (
         <div className="mx-auto lg:w-1/2 lg:min-h-screen bg-gradient-to-b from-purple-900 to-purple-700 lg:flex lg:items-center lg:justify-center">
             <div className="w-4/5 mx-auto py-16 lg:py-0">
-                <h1 className="text-white text-4xl md:text-5xl text-center !leading-relaxed font-inter">A unique trivia application that will test every fiber of your knowledge.</h1>
+                <h1 className="text-white cursor-default text-4xl md:text-5xl text-center !leading-relaxed font-inter">A unique trivia application that will test every fiber of your knowledge. Could you become the next <span className="font-bold">Trivia King?</span></h1>
 
                 <div className="flex flex-col space-y-5 mt-10">
                     <div className="flex space-x-4 items-center">

@@ -1,6 +1,7 @@
 import Register from "./LandingPage/Register";
 import Description from "./LandingPage/Description";
 import Login from "./Login/Login";
+import Dashboard from "./Main/Dashboard";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 const App = () => {
@@ -9,7 +10,7 @@ const App = () => {
       <Switch>
         <Route exact path="/">
           <div id="LandingPage">
-            <div className="flex flex-col lg:flex-row">
+            <div className="flex flex-col lg:flex-row bg-gray-100">
 
               {/* Sign up */}
               <Register />
@@ -24,6 +25,11 @@ const App = () => {
         <Route exact path="/login">
           <Login />
         </Route>
+
+        <Route exact path="/dashboard">
+          <Dashboard />
+        </Route>
+
       </Switch>
     </Router>
   );

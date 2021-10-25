@@ -10,11 +10,19 @@
 /* Apply directives */
 
 .input-field {
-  @apply bg-gray-200 rounded-sm w-full p-2 mt-4 font-inter focus:outline-none focus:ring-2 focus:ring-purple-900;
+  @apply bg-gray-300 rounded-sm w-full py-2 pl-12 mt-4 font-inter focus:outline-none focus:ring-2 focus:ring-purple-900;
 }
 
-.sign-up-btn {
-  @apply bg-purple-600 hover:bg-purple-900 py-2 rounded-md w-full text-gray-200 font-inter;
+.sign-up-login-btn {
+  @apply bg-purple-600 hover:bg-purple-900 transition duration-300 py-2 rounded-md w-full text-gray-200 font-inter shadow-lg;
+}
+
+.menu-btns {
+  @apply flex focus:outline-none items-center justify-center space-x-3 bg-gray-700 md:hover:bg-gray-900 transition duration-300 shadow-lg py-3 px-8 rounded-lg;
+}
+
+.google-btn {
+  @apply bg-purple-600 text-gray-200 xl:text-black xl:bg-gray-100 xl:border-2 rounded-lg xl:border-purple-900 py-2.5 md:pl-4 xl:fill-link xl:hover:text-white shadow-lg;
 }
 
 /* Custom CSS */
@@ -37,7 +45,8 @@
     width: 0;
     content: "";
     z-index: -1;
-    background: rgba(31, 41, 55, 1);
+    /* background: rgba(31, 41, 55, 1); */
+    background: rgba(124, 58, 237, 1);
     -webkit-transition: all 0.3s cubic-bezier(0.785, 0.135, 0.15, 0.86);
     transition: all 0.3s cubic-bezier(0.785, 0.135, 0.15, 0.86);
     will-change: width;
@@ -51,7 +60,81 @@
     outline: none;
   }
 
+  /* Prevents alt text from appearing before image loads */
+
   img {
     color: transparent;
+  }
+
+  /* Waving hand */
+
+  .wave {
+    animation-name: wave-animation; /* Refers to the name of your @keyframes element below */
+    animation-duration: 2.3s; /* Change to speed up or slow down */
+    animation-iteration-count: infinite; /* Never stop waving :) */
+    transform-origin: 70% 70%; /* Pivot around the bottom-left palm */
+  }
+
+  @keyframes wave-animation {
+    0% {
+      transform: rotate(0deg);
+    }
+    10% {
+      transform: rotate(14deg);
+    }
+    20% {
+      transform: rotate(-8deg);
+    }
+    30% {
+      transform: rotate(14deg);
+    }
+    40% {
+      transform: rotate(-4deg);
+    }
+    50% {
+      transform: rotate(10deg);
+    }
+    60% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(0deg);
+    }
+  }
+
+  /* Text inside image */
+
+  .how-to-play {
+    background: linear-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15)),
+      url(https://cdn.pixabay.com/photo/2019/06/10/11/35/learning-4264032_960_720.jpg);
+    background-size: cover;
+  }
+
+  .how-to-play h2 {
+    transform: translate(-50%, -50%);
+  }
+
+  /* Div sliding from left to right */
+
+  #slider {
+    transform: translateX(-130%);
+    -webkit-transform: translateX(-130%);
+  }
+
+  .slide-in {
+    animation: slide-in 1s forwards;
+    -webkit-animation: slide-in 1s forwards;
+  }
+
+  @keyframes slide-in {
+    100% {
+      transform: translateX(0%);
+    }
+  }
+
+  @-webkit-keyframes slide-in {
+    100% {
+      -webkit-transform: translateX(0%);
+    }
   }
 }
