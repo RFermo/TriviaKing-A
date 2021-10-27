@@ -1,35 +1,14 @@
 import { FaGoogle, FaUser, FaKey } from "react-icons/fa";
 import Axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 
-// Returns true if user is logged in
-// otherwise returns false
-const isAuthorized = async () => {
-    const response = await Axios.get('http://localhost:4000/verify', {withCredentials: true});
-    return response.data.isAuthenticated;
-};
-
-// Logs user out and returns the response
-const logout = async () => {
-    const response = await Axios.get("http://localhost:4000/logout", {withCredentials: true});
-    return response;
-}
-
 const Login = () => {
-
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [loginStatus, setLoginStatus] = useState("none");
     // const [incorrect, setIncorrect] = useState(false);
     const history = useHistory();
-
-    useEffect(() => {
-        ( async () => {
-            const auth = await isAuthorized();
-            if (auth) history.push('/dashboard');
-        }) ();
-    }, []);
 
     const loginUser = async (event) => {
 
@@ -43,7 +22,7 @@ const Login = () => {
             const user_login_feedback = response.data;
 
             if (user_login_feedback.isAuthenticated) {
-                history.push("/dashboard"); // If user successfully logs in, push him to dashboard page
+                window.location.replace("http://localhost:3000/dashboard");
             }
             else {
                 setLoginStatus(user_login_feedback.message);

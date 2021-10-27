@@ -1,38 +1,69 @@
+import { useEffect, useState, } from 'react';
 import Register from "./LandingPage/Register";
 import Description from "./LandingPage/Description";
 import Login from "./Login/Login";
 import Dashboard from "./Main/Dashboard";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
+import axios from 'axios';
+
+// Returns true if user is logged in
+// otherwise returns false
+export const isAuthorized = async () => {
+  const response = await axios.get('http://localhost:4000/verify', {withCredentials: true});
+  return response.data.isAuthenticated;
+};
+
+// Logs user out and returns the response
+const logout = async () => {
+  const response = await axios.get("http://localhost:4000/logout", {withCredentials: true});
+  return response;
+}
 
 const App = () => {
+
+  const [auth, setAuth] = useState(false);
+  useEffect(() => {
+      ( async () => {
+          const response = await isAuthorized();
+          setAuth(response);
+      }) ();
+  }, [auth]);
+
   return (
     <Router>
       <Switch>
+
         <Route exact path="/">
-          <div id="LandingPage">
-            <div className="flex flex-col lg:flex-row bg-gray-100">
-
-              {/* Sign up */}
-              <Register />
-
-              {/* Description */}
-              <Description />
-
-            </div>
-          </div>
+          { auth ? <Redirect to="/dashboard" /> : <LandingPage />}
         </Route>
 
         <Route exact path="/login">
-          <Login />
+          { auth ? <Redirect to="/dashboard" /> : <Login /> }
         </Route>
 
         <Route exact path="/dashboard">
-          <Dashboard />
+          { !auth ? <Redirect to="/login" /> : <Dashboard /> }
         </Route>
 
       </Switch>
     </Router>
   );
 }
- 
+
+const LandingPage = () => {
+  return (
+    <div id="LandingPage">
+      <div className="flex flex-col lg:flex-row bg-gray-100">
+
+        {/* Sign up */}
+        <Register />
+
+        {/* Description */}
+        <Description />
+
+      </div>
+  </div>
+  );
+}
+
 export default App;
