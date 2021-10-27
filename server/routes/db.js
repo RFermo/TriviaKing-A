@@ -59,6 +59,23 @@ const storeRefreshToken = (user, refreshToken) => {
     });
 };
 
+const clearRefreshToken = (user) => {
+    let sql = "UPDATE ?? SET ?? = ? WHERE ?? = ?";
+    const values = ["users", "refresh_token", "", "id", ""];
+    let query = mysql.format(sql, values);
+
+    return new Promise( (resolve, reject) => {
+        dbpool.query(query, (error, response) => {
+            if (error) {
+                console.log(`Error clearing token: ${error.message}`);
+                return reject(error);
+            }
+            resolve(response[0]);
+        });
+
+    });
+};
+
 const getRefreshToken = (user) => {
     let sql = "SELECT ?? FROM ?? WHERE ?? = ?";
     let values = ["refresh_token", "users", "id", user.id];
@@ -75,4 +92,4 @@ const getRefreshToken = (user) => {
     });
 };
 
-module.exports = { getUser, registerUser, storeRefreshToken, getRefreshToken };
+module.exports = { getUser, registerUser, storeRefreshToken, getRefreshToken, clearRefreshToken };
