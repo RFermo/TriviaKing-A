@@ -4,6 +4,8 @@ import Header from "../Header";
 import { FaChevronUp, FaChevronDown, FaChevronLeft, FaChevronRight, FaArrowRight } from "react-icons/fa";
 import appendAndShuffle from "../../utils/shuffleArr";
 import Options from "./Options";
+import correctSound from "./sounds/correct.wav";
+import wrongSound from "./sounds/wrong.wav";
 
 const Play = () => {
 
@@ -18,8 +20,11 @@ const Play = () => {
     const [btnArray, setBtnArray] = useState([]);
     const [gameOver, setGameOver] = useState(false);
 
-    const correctClasses = ["bg-purple-800", "!text-gray-200", "pointer-events-none", "transition", "duration-300"];
-    const incorrectClasses = ["bg-red-800", "!text-gray-200", "transition", "duration-300"];
+    let correct_audio = new Audio(correctSound);
+    let wrong_audio = new Audio(wrongSound);
+
+    const correctClasses = ["bg-purple-800", "!text-gray-200", "pointer-events-none", "transition", "duration-200"];
+    const incorrectClasses = ["bg-red-800", "!text-gray-200", "transition", "duration-200"];
     
     const handleBegin = async () => {
 
@@ -92,6 +97,7 @@ const Play = () => {
 
             else {
                 button.add(...correctClasses);
+                correct_audio.play();
                 setNext(!next);
                 setScore(score + 1);
             }
@@ -99,6 +105,7 @@ const Play = () => {
 
         else {
             button.add(...incorrectClasses);
+            wrong_audio.play();
             setGameOver(!gameOver);
             console.log("Game over!");
         }
