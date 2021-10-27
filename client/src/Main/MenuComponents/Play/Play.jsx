@@ -1,5 +1,5 @@
 import Axios from "axios";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Header from "../Header";
 import { FaChevronUp, FaChevronDown, FaChevronLeft, FaChevronRight, FaArrowRight } from "react-icons/fa";
 import appendAndShuffle from "../../utils/shuffleArr";
@@ -138,7 +138,7 @@ const Play = () => {
                                 handleBegin();
                             }}
                         >
-                            <h1 className="font-inter text-3xl text-gray-800 font-semibold">Start playing!</h1>
+                            <h1 className="font-inter text-3xl md:text-5xl 2xl:text-6xl text-gray-800 font-semibold">Start playing!</h1>
                         </button>
 
                         <div>

@@ -3,6 +3,7 @@ import { HiOutlineMail } from "react-icons/hi";
 import { useState } from "react";
 import Axios from "axios";
 import { Link, useHistory } from "react-router-dom";
+import TKlogo from "../Main/TKLogo.png";
 
 const Register = () => {
 
@@ -50,9 +51,11 @@ const Register = () => {
         <div className="w-4/5 mx-auto lg:w-1/2 lg:min-h-screen lg:flex lg:items-center py-8 xl:py-14 2xl:py-0 bg-gray-100">
 
             <div className="lg:w-4/5 2xl:w-3/5 mx-auto">
-                <h1 className="text-5xl md:text-6xl cursor-default text-center font-georama text-purple-900 font-extrabold tracking-wider">Trivia King</h1>
+
+                <img className="w-16 h-16 mx-auto" src={TKlogo} alt="Trivia King logo" />
+                <h1 className="text-5xl mt-4 md:text-6xl cursor-default text-center font-georama text-purple-900 font-extrabold tracking-wider">Trivia King</h1>
                 
-                <div className="flex flex-col space-y-6 mt-16">
+                <div className="flex flex-col space-y-6 mt-12">
                     <div className="text-3xl cursor-default md:text-4xl font-inter font-extrabold">
                         Signup
                     </div>
