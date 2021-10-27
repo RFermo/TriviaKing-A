@@ -4,7 +4,7 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 // const { verify } = require('jsonwebtoken');
-const { authToken, refreshToken } = require('../routes/tokens');
+const { authToken, refreshToken, verifyToken } = require('../routes/tokens');
 
 const server = express();
 
@@ -32,8 +32,9 @@ const protectedRoute = require('../routes/protected');
 
 server.post('/register', registerRoute);
 server.post('/login', loginRoute);
-server.post('/logout', logoutRoute);
-server.post('/refresh_token', refreshToken);
+server.get('/logout', logoutRoute);
+server.get('/refresh_token', refreshToken);
+server.get('/verify', verifyToken);
 server.post('/protected', authToken, protectedRoute);
 
 // Server
