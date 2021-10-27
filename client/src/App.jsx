@@ -2,6 +2,7 @@ import Register from "./LandingPage/Register";
 import Description from "./LandingPage/Description";
 import Login from "./Login/Login";
 import Dashboard from "./Main/Dashboard";
+import Play from "./Main/MenuComponents/Play/Play";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 const App = () => {
@@ -28,6 +29,10 @@ const App = () => {
 
         <Route exact path="/dashboard">
           <Dashboard />
+        </Route>
+
+        <Route exact path ="/play">
+          <Play />
         </Route>
 
       </Switch>

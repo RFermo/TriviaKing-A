@@ -107,11 +107,6 @@
   .how-to-play {
     background: linear-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15)),
       url(https://cdn.pixabay.com/photo/2019/06/10/11/35/learning-4264032_960_720.jpg);
-    background-size: cover;
-  }
-
-  .how-to-play h2 {
-    transform: translate(-50%, -50%);
   }
 
   /* Div sliding from left to right */
@@ -122,8 +117,8 @@
   }
 
   .slide-in {
-    animation: slide-in 1s forwards;
-    -webkit-animation: slide-in 1s forwards;
+    animation: slide-in 0.8s forwards;
+    -webkit-animation: slide-in 0.8s forwards;
   }
 
   @keyframes slide-in {
@@ -135,6 +130,63 @@
   @-webkit-keyframes slide-in {
     100% {
       -webkit-transform: translateX(0%);
+    }
+  }
+
+  /* Arrow bouncing to the right */
+
+  .right-bounce {
+    animation: bounce-right 1s infinite;
+  }
+
+  @keyframes bounce-right {
+    0%,
+    100% {
+      transform: translateX(25%);
+      animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+    }
+
+    50% {
+      transform: translateX(0);
+      animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+    }
+  }
+
+  /* Arrow bouncing to the left */
+
+  .left-bounce {
+    animation: bounce-left 1s infinite;
+  }
+
+  @keyframes bounce-left {
+    0%,
+    100% {
+      transform: translateX(-25%);
+      animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+    }
+
+    50% {
+      transform: translateX(0);
+      animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+    }
+  }
+
+  /* Arrow bouncing up */
+
+  .up-bounce {
+    animation: bounce-up 1s infinite;
+  }
+
+  @keyframes bounce-up {
+    0%,
+    100% {
+      transform: translateY(25%);
+      animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+    }
+
+    50% {
+      transform: translateY(0);
+      animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
     }
   }
 }
