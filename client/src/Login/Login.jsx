@@ -5,39 +5,28 @@ import { Link, useHistory } from "react-router-dom";
 import TKlogo from "../Main/TKLogo.png";
 
 const Login = () => {
-
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [loginStatus, setLoginStatus] = useState("none");
-    const [incorrect, setIncorrect] = useState(false);
+    // const [incorrect, setIncorrect] = useState(false);
     const history = useHistory();
 
     const loginUser = async (event) => {
 
         event.preventDefault();
-
         try {
             const response = await Axios.post("http://localhost:4000/login", {
                 username: username,
                 password: password
-            });
+            }, {withCredentials: true});
 
-            const user_login_feedback = response.data.message;
+            const user_login_feedback = response.data;
 
-            if (user_login_feedback === "User signed in!") {
-
-                /* 
-                    Maybe do some token handling to prevent users from going back to login page if they are
-                    already logged in? 
-
-                    Let users stay logged in for a while even if they close the browser with the tokens?
-                */
-
-                history.push("/dashboard"); // If user successfully logs in, push him to dashboard page
+            if (user_login_feedback.isAuthenticated) {
+                window.location.replace("http://localhost:3000/dashboard");
             }
-
             else {
-                setLoginStatus(user_login_feedback);
+                setLoginStatus(user_login_feedback.message);
             }
         }
 
@@ -48,6 +37,7 @@ const Login = () => {
 
     return (
         <div className="min-h-screen flex justify-center items-center bg-gradient-to-tr from-purple-900 to-purple-700">
+  
             <div className="w-5/6 lg:w-11/12 xl:w-4/5 2xl:w-3/5 flex flex-col lg:flex-row my-10 lg:my-0">
                 <div className="lg:w-1/2">
                     <img className="h-[250px] md:h-[375px] lg:h-[670px] xl:h-[675px] w-full object-cover rounded-tr-xl lg:rounded-tr-none rounded-tl-xl lg:rounded-bl-xl" 
