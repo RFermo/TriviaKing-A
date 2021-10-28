@@ -1,1 +1,3 @@
+# CLASSES
 
+The following classes (functional components) were created: Register, Login, Description, Dashboard, Profile, Play, Friends, Header.
