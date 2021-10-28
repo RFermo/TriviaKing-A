@@ -3,31 +3,6 @@ import Register from "./LandingPage/Register";
 import Description from "./LandingPage/Description";
 import Login from "./Login/Login";
 import Dashboard from "./Main/Dashboard";
-import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
-import axios from 'axios';
-
-// Returns true if user is logged in
-// otherwise returns false
-export const isAuthorized = async () => {
-  const response = await axios.get('http://localhost:4000/verify', {withCredentials: true});
-  return response.data.isAuthenticated;
-};
-
-// Logs user out and returns the response
-const logout = async () => {
-  const response = await axios.get("http://localhost:4000/logout", {withCredentials: true});
-  return response;
-}
-
-const App = () => {
-
-  const [auth, setAuth] = useState(false);
-  useEffect(() => {
-      ( async () => {
-          const response = await isAuthorized();
-          setAuth(response);
-      }) ();
-  }, [auth]);
 
   return (
     <Router>
@@ -43,6 +18,22 @@ const App = () => {
 
         <Route exact path="/dashboard">
           { !auth ? <Redirect to="/login" /> : <Dashboard /> }
+        </Route>
+
+        <Route exact path="/play">
+          <Play />
+        </Route>
+
+        <Route exact path="/profile">
+          <Profile />
+        </Route>
+
+        <Route exact path="/friends">
+          <Friends />
+        </Route>
+
+        <Route exact path="/logout">
+          {/* <Logout /> */}
         </Route>
 
       </Switch>
