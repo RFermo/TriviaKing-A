@@ -189,4 +189,18 @@
       animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
     }
   }
+
+  .sidebar-transition {
+    transition: opacity 0.3s;
+  }
+
+  .opacity-transform-initial {
+    opacity: 0;
+    transform: translateX(-300px);
+  }
+
+  .opacity-transform-final {
+    opacity: 1;
+    transform: translateX(0px);
+  }
 }

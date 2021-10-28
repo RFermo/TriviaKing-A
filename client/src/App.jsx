@@ -3,9 +3,13 @@ import Description from "./LandingPage/Description";
 import Login from "./Login/Login";
 import Dashboard from "./Main/Dashboard";
 import Play from "./Main/MenuComponents/Play/Play";
+import Friends from "./Main/MenuComponents/Friends";
+import Profile from "./Main/MenuComponents/Profile";
+// import Logout from "./Main/MenuComponents/Logout";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 const App = () => {
+
   return (
     <Router>
       <Switch>
@@ -31,8 +35,20 @@ const App = () => {
           <Dashboard />
         </Route>
 
-        <Route exact path ="/play">
+        <Route exact path="/play">
           <Play />
+        </Route>
+
+        <Route exact path="/profile">
+          <Profile />
+        </Route>
+
+        <Route exact path="/friends">
+          <Friends />
+        </Route>
+
+        <Route exact path="/logout">
+          {/* <Logout /> */}
         </Route>
 
       </Switch>
