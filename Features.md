@@ -1,16 +1,14 @@
 # Features
 
--Designed a unique UI with tailwind CSS framework.
+-Designed a unique UI with Tailwind CSS framework.
 
--The following features were implemented until now for the signup page, login page for that user authentication has been implemented.
-
--The Authentication System is secure since we use hash passwords.
+-The Authentication System is implemented (except Google OAuth) and secure since we use hashed passwords and authentication tokens with JWT and bcrypt.
 
 -Most of the features of the application are responsive.
 
 -The trivia logic for the project is complemented.
 
--We can successfully fetch the questions from the api. 
+-We can successfully fetch the questions from the OpenTrivia API. 
 
 -Designed a logo for the web application.
 
