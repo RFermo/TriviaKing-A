@@ -1,15 +1,13 @@
 import { FaGoogle, FaUser, FaKey } from "react-icons/fa";
 import Axios from "axios";
 import { useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import TKlogo from "../Main/TKLogo.png";
 
 const Login = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [loginStatus, setLoginStatus] = useState("none");
-    // const [incorrect, setIncorrect] = useState(false);
-    const history = useHistory();
 
     const loginUser = async (event) => {
 

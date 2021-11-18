@@ -1,4 +1,4 @@
-import { useEffect, useState, } from 'react';
+import { useEffect, useState } from 'react';
 import Register from "./LandingPage/Register";
 import Description from "./LandingPage/Description";
 import Login from "./Login/Login";
@@ -6,18 +6,12 @@ import Dashboard from "./Main/Dashboard";
 import Play from "./Main/MenuComponents/Play/Play";
 import Profile from "./Main/MenuComponents/Profile";
 import Friends from "./Main/MenuComponents/Friends";
-import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom"; 
+import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
 import axios from "axios";
 
 export const isAuthorized = async () => {
-  const response = await axios.get('http://localhost:4000/verify', {withCredentials: true});
+  const response = await axios.get('http://localhost:4000/verify', { withCredentials: true });
   return response.data.isAuthenticated;
-};
-
-// Logs user out and returns the response
-const logout = async () => {
-  const response = await axios.get("http://localhost:4000/logout", {withCredentials: true});
-  return response;
 };
 
 const App = () => {
@@ -35,11 +29,11 @@ const App = () => {
     <Router>
       <Switch>
         <Route exact path="/">
-          { auth ? <Redirect to="/dashboard" /> : <LandingPage />}
+          { auth ? <Redirect to="/dashboard" /> : <LandingPage /> }
         </Route>
 
         <Route exact path="/login">
-          { auth ? <Redirect to="/dashboard" /> : <Login />}
+          { auth ? <Redirect to="/dashboard" /> : <Login /> }
         </Route>
 
         <Route exact path="/dashboard">

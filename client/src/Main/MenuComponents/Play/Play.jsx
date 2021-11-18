@@ -1,27 +1,34 @@
 import Axios from "axios";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Header from "../Header";
 import { FaChevronUp, FaChevronDown, FaChevronLeft, FaChevronRight, FaArrowRight } from "react-icons/fa";
 import appendAndShuffle from "../../utils/shuffleArr";
-import Options from "./Options";
+import { Options } from "./Options";
+import Countdown from "./Countdown/Countdown";
 import correctSound from "./sounds/correct.wav";
 import wrongSound from "./sounds/wrong.wav";
+import playSound from "./sounds/play.wav";
+import Gameover from "./Gameover";
 
 const Play = () => {
 
     const [questions, setQuestions] = useState([]);
     const [loading, setLoading] = useState(false);
     const [currQuestion, setCurrQuestion] = useState(0);
+    const [showTimer, setShowTimer] = useState(false);
+    const [currentTime, setCurrentTime] = useState(10);
     const [startGame, setStartGame] = useState(false);
     const [playButton, setPlayButton] = useState(false);
+    const [userClicked, setUserClicked] = useState(false);
     const [next, setNext] = useState(false);
     const [score, setScore] = useState(0);
     const [btnClicked, setBtnClicked] = useState(null);
     const [btnArray, setBtnArray] = useState([]);
     const [gameOver, setGameOver] = useState(false);
 
-    let correct_audio = new Audio(correctSound);
-    let wrong_audio = new Audio(wrongSound);
+    const correct_audio = new Audio(correctSound);
+    const wrong_audio = new Audio(wrongSound);
+    const play_audio = new Audio(playSound);
 
     const correctClasses = ["bg-purple-800", "!text-gray-200", "pointer-events-none", "transition", "duration-200"];
     const incorrectClasses = ["bg-red-800", "!text-gray-200", "transition", "duration-200"];
@@ -41,6 +48,7 @@ const Play = () => {
             setQuestions([...easyArr, ...mediumArr, ...hardArr]);
             setLoading(false);
             setStartGame(true);
+            setShowTimer(true);
         }
 
         catch (err) {
@@ -65,7 +73,7 @@ const Play = () => {
             const childClasses = btnArray[i].classList;
             childClasses.remove("pointer-events-none");
         }
-    }
+    };
 
     const nextQuestion = () => {
 
@@ -73,14 +81,16 @@ const Play = () => {
             setCurrQuestion(currQuestion + 1);
             setNext(!next);
             setBtnClicked(btnClicked.remove(...correctClasses));
-
             makeClickable(); // make all buttons clickable when user moves on to next question
+            setCurrentTime(10);
+            setShowTimer(true);
         }
     };
 
-    const checkAnswer = (e, id) => {
+    const checkAnswer = (e) => {
 
         const answer = e.target.value;
+        setShowTimer(false);
         const correct_answer = decodeURIComponent(questions[currQuestion].correct_answer);
 
         const btnList = e.target.parentNode.childNodes; // array of all buttons
@@ -108,7 +118,6 @@ const Play = () => {
             button.add(...incorrectClasses);
             wrong_audio.play();
             setGameOver(true);
-            console.log("Game over!");
         }
     };
       
@@ -136,6 +145,7 @@ const Play = () => {
                             className="bg-yellow-500 group px-4 py-4 xl:hover:bg-gray-800 transition duration-300 md:px-6 md:py-6 lg:px-8 lg:py-8 xl:px-10 xl:py-10 rounded-xl"
                             onClick={() => {
                                 setPlayButton(!playButton);
+                                play_audio.play();
                                 handleBegin();
                             }}
                         >
@@ -154,13 +164,18 @@ const Play = () => {
                 
 
                 {startGame && 
-                    <div id="slider" className="w-11/12 md:w-5/6 lg:w-3/4 xl:w-2/3 2xl:w-7/12 h-[600px] md:h-[680px] lg:h-[730px] xl:h-[670px] 2xl:h-[750px] bg-gray-300 rounded-xl relative slide-in">
+                    <div className="w-11/12 md:w-5/6 lg:w-3/4 xl:w-2/3 2xl:w-7/12 h-[600px] md:h-[680px] lg:h-[730px] xl:h-[670px] 2xl:h-[750px] bg-gray-300 rounded-xl relative">
+
+                        <div className="absolute top-8 right-8">
+                            { showTimer ? <Countdown curr={currentTime} setCurr={setCurrentTime} userClicked={userClicked} setUserClicked={setUserClicked} /> : null }
+                        </div>
 
                         <div className="w-11/12 mx-auto flex flex-col space-y-7 md:space-y-9 mt-4 md:mt-8 lg:mt-10">
+                            
                             <div className="bg-purple-900 w-max mx-auto px-4 py-3 rounded-xl shadow-xl">
-                            <h3 className="font-inter text-lg md:text-xl lg:text-2xl 2xl:text-3xl text-gray-200">Question {currQuestion + 1}</h3>
+                                <h3 className="font-inter text-lg md:text-xl lg:text-2xl 2xl:text-3xl text-gray-200">Question {currQuestion + 1}</h3>
                             </div>
-
+                                
                             <div>
                                 <h1 className="font-inter text-center font-semibold text-lg md:text-xl lg:text-2xl 2xl:text-3xl">
                                     {decodeURIComponent(questions[currQuestion].question)}
@@ -174,6 +189,7 @@ const Play = () => {
                                     return (
                                         <Options
                                             key={id}
+                                            setUserClicked={setUserClicked}
                                             checkAnswer={checkAnswer}
                                             class="py-2 xl:hover:bg-gray-800 xl:hover:text-gray-200 transition duration-300 md:py-2.5 rounded-xl md:text-lg lg:text-xl 2xl:text-2xl shadow-lg border-2 border-purple-900 font-inter font-semibold text-gray-800"
                                             option={decodeURIComponent(option)}
@@ -197,6 +213,8 @@ const Play = () => {
                     </div>
                 }
             </div>
+
+            { gameOver || currentTime === 0 ? <Gameover score={score} /> : null}
         </div>
     );
 };

@@ -1,8 +1,14 @@
-const Options = (props) => {
+import React, { createRef } from "react";
 
+const buttonRef = createRef();
+
+const Options = (props) => {
+    
     return (
-        <button 
+        <button
+            ref={buttonRef}
             onClick={(e) => {
+                props.setUserClicked(true);
                 props.checkAnswer(e, props.id)
             }} 
             value={props.option}
@@ -13,4 +19,4 @@ const Options = (props) => {
     );
 };
  
-export default Options;
+export {Options, buttonRef};

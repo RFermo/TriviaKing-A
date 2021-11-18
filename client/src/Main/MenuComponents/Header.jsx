@@ -3,12 +3,18 @@ import { HiMenu, HiX } from "react-icons/hi";
 import TKlogo from "../TKLogo.png";
 import { FaCrown, FaHome, FaSignOutAlt, FaUser, FaUserFriends } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 const Header = () => {
 
     // Need to work on mobile sidebar
 
     const [menuButton, setMenuButton] = useState(false);
+
+    const logout = async () => {
+        await axios.get("http://localhost:4000/logout", { withCredentials: true });
+        window.location.replace("http://localhost:3000/login")
+    };
 
     return (
         <div>
@@ -52,10 +58,10 @@ const Header = () => {
                             <p className="text-2xl text-gray-200">Friends</p>
                         </Link>
 
-                        <Link to="/logout" className="flex bg-gray-800 items-center space-x-4 rounded-xl px-4 py-2">
+                        <button onClick={logout} className="flex bg-gray-800 items-center space-x-4 rounded-xl px-4 py-2">
                             <FaSignOutAlt className="text-gray-200 w-5 h-5" />
                             <p className="text-2xl text-gray-200">Logout</p>
-                        </Link>
+                        </button>
                     </div>
                 </div>
             </div>
