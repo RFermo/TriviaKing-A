@@ -2,12 +2,12 @@ import { useEffect, useState } from 'react';
 import Register from "./LandingPage/Register";
 import Description from "./LandingPage/Description";
 import Login from "./Login/Login";
-import Dashboard from "./Main/Dashboard";
-import Play from "./Main/MenuComponents/Play/Play";
-import Profile from "./Main/MenuComponents/Profile";
-import Friends from "./Main/MenuComponents/Friends";
+import Dashboard from "./Main/Dashboard/Dashboard";
+import Play from "./Main/MenuComponents/Play/Game/Play";
+import Profile from "./Main/MenuComponents/Profile/Profile";
 import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
 import axios from "axios";
+import Privacy from './Main/Misc/Privacy';
 
 export const isAuthorized = async () => {
   const response = await axios.get('http://localhost:4000/verify', { withCredentials: true });
@@ -48,8 +48,12 @@ const App = () => {
           { !auth ? <Redirect to="/login" /> : <Profile /> }
         </Route>
 
-        <Route exact path="/friends">
-          { !auth ? <Redirect to="/login" /> : <Friends /> }
+        <Route exact path="/privacy">
+          <Privacy />
+        </Route>
+
+        <Route exact path="/terms">
+          <Privacy />
         </Route>
         
       </Switch>

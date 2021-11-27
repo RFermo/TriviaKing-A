@@ -7,6 +7,10 @@ const appendAndShuffle = (easyArr, mediumArr, hardArr) => {
         incorrect_arr = shuffleArray(incorrect_arr);
     }
 
+    if (!mediumArr) { // If we are changing questions, we don't need to proceed any further.
+        return;
+    }
+
     for (let i = 0; i < mediumArr.length; i++) {
         const correct_answer = mediumArr[i].correct_answer;
         let incorrect_arr = mediumArr[i].incorrect_answers;
