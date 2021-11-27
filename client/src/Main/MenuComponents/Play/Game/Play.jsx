@@ -16,6 +16,7 @@ import { Link } from "react-router-dom";
 /* 
     Create states to hold the number of 50:50s that the user has and the number of questions that they
     can change. 
+    Fetch lifelines that user has and set the states in the handleBegin function. Then, pass those states as props to the Lifelines component.
 */
 
 const Play = () => {
@@ -56,8 +57,6 @@ const Play = () => {
             const easyResponse = await Axios.get("https://opentdb.com/api.php?amount=5&difficulty=easy&type=multiple&encode=url3986");
             const mediumResponse = await Axios.get("https://opentdb.com/api.php?amount=4&difficulty=medium&type=multiple&encode=url3986");
             const hardResponse = await Axios.get("https://opentdb.com/api.php?amount=4&difficulty=hard&type=multiple&encode=url3986");
-
-            // Fetch lifelines that user has and set the states. Then, pass those states as props to the Lifelines component.
 
             let [easyArr, mediumArr, hardArr] = [easyResponse.data.results, mediumResponse.data.results, hardResponse.data.results];
             appendAndShuffle(easyArr, mediumArr, hardArr);
