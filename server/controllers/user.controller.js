@@ -8,6 +8,10 @@ exports.authorized = (req, res, next) => {
     });
 };
 
+exports.isAuthorized = (req, res) => {
+    return res.send({ isAuthenticated: req.isAuthenticated() });
+};
+
 exports.findOne = async (req, res) => {
     const user = req.body;
     await User.findOne(user)
@@ -20,7 +24,10 @@ exports.register = async (req, res) => {
     const exists = await User.isTaken(user);
 
     if (exists) {
-        res.send(`${exists.message}`);
+        res.send({
+            success: false,
+            message: exists.message
+        });
         return;
     }
     await User.register(user)
@@ -36,7 +43,9 @@ exports.protected = async (req, res) => {
 }
 
 exports.login = async (req, res) => {
-    return res.send(req.user);
+    res.send({
+        isAuthenticated: true
+    })
 }
 
 exports.logout = (req, res) => {

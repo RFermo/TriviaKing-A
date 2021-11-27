@@ -6,6 +6,7 @@ module.exports = (app) => {
     
     app.post('/user/register', User.register);
     app.post('/user/login', passport.authenticate('local'), User.login);
+    app.get('/user/isAuthorized', User.isAuthorized)
     app.delete('/user/logout', User.logout);
     app.get('/user/find/', User.findOne);
     app.post('/user/protected', User.authorized, User.protected);
