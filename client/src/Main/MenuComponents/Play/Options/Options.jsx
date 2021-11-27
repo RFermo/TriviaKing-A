@@ -1,15 +1,13 @@
-import React, { createRef } from "react";
-
-const buttonRef = createRef();
+import React from "react";
 
 const Options = (props) => {
     
     return (
         <button
-            ref={buttonRef}
+            disabled={props.userClicked || props.currTime === 0}
             onClick={(e) => {
                 props.setUserClicked(true);
-                props.checkAnswer(e, props.id)
+                props.checkAnswer(e)
             }} 
             value={props.option}
             className={`${props.class}`}
@@ -19,4 +17,4 @@ const Options = (props) => {
     );
 };
  
-export {Options, buttonRef};
+export default Options;

@@ -2,7 +2,7 @@ import { FaGoogle, FaUser, FaKey } from "react-icons/fa";
 import Axios from "axios";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import TKlogo from "../Main/TKLogo.png";
+import TKlogo from "../Main/images/TKLogo.png";
 
 const Login = () => {
     const [username, setUsername] = useState("");

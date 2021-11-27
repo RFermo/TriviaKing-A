@@ -3,7 +3,7 @@ import { HiOutlineMail } from "react-icons/hi";
 import { useState } from "react";
 import Axios from "axios";
 import { Link, useHistory } from "react-router-dom";
-import TKlogo from "../Main/TKLogo.png";
+import TKlogo from "../Main/images/TKLogo.png";
 
 const Register = () => {
 
@@ -140,7 +140,7 @@ const Register = () => {
                 </div>
             
                 <div className="mt-6 font-inter font-light">
-                    By signing up, you agree to our <span className="underline font-bold">Privacy Policy</span> and <span className="underline font-bold">Terms of Use</span> 
+                    By signing up, you agree to our <Link to="/privacy" className="underline font-bold">Privacy Policy</Link> and <Link to="/terms" className="underline font-bold">Terms of Use</Link> 
                 </div>
             </div>
         </div>

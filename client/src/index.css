@@ -153,17 +153,14 @@
     }
   }
 
-  .sidebar-transition {
-    transition: opacity 0.3s;
+  /* Remove horizontal scrollbar */
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
   }
 
-  .opacity-transform-initial {
-    opacity: 0;
-    transform: translateX(-300px);
-  }
-
-  .opacity-transform-final {
-    opacity: 1;
-    transform: translateX(0px);
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
 }
