@@ -9,5 +9,6 @@ module.exports = (app) => {
     app.get('/user/isAuthorized', User.isAuthorized)
     app.delete('/user/logout', User.logout);
     app.get('/user/find/', User.findOne);
+    app.put('/user/update_profile', User.authorized, User.updateProfile);
     app.post('/user/protected', User.authorized, User.protected);
 };

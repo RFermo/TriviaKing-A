@@ -50,3 +50,22 @@ exports.createProfile = async(userId) => {
   let values = ["profile", "id", userId];
   return await dbQuery(sql, values);
 };
+
+exports.getProfileById = async (userId) => {
+  let sql = "SELECT * FROM ?? WHERE ?? = ?";
+  let values = [ "profile", "id", userId ];
+  return await dbQuery(sql, values);
+}
+
+exports.updateProfile = async(userId, profile) => {
+  let sql = "UPDATE ?? SET ";
+  const length = Object.keys(profile).length - 1;
+  Object.keys(profile).forEach( (key, index) => {
+    sql += `${key} = ${profile[key]}`
+    if (index < length) sql += ', ';
+    else sql += ' ';
+  })
+  sql += `WHERE ?? = ?`;
+  values = ["profile", "id", userId];
+  return await dbQuery(sql, values);
+}

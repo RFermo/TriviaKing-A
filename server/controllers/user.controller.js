@@ -53,11 +53,13 @@ exports.logout = (req, res) => {
   return sendMessage(res, true, 'You have logged out successfully');
 }
 
-exports.createProfile = async (req, res) => {
-  await createProfile
-  return res.send({
-    success: true,
-    message: 'Profile created'
+exports.updateProfile = async (req, res) => {
+  const profile = req.body;
+  await User.updateProfile(req.user.id, profile)
+  .then(data => sendMessage(res, true, 'Profile udpated'))
+  .catch(error => {
+    console.log(`Error: ${error}`)
+    sendMessage(res, false, 'Failed to Update Profile')
   })
 };
 
