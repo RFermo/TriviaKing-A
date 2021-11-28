@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Register from "./LandingPage/Register";
 import Description from "./LandingPage/Description";
 import Login from "./Login/Login";
@@ -11,23 +11,26 @@ import Privacy from './Main/Misc/Privacy';
 import Terms from "./Main/Misc/Terms";
 
 export const isAuthorized = async () => {
-  const response = await axios.get('http://localhost:4000/verify', { withCredentials: true });
+  const response = await axios.get('http://localhost:4000/user/isAuthorized', { withCredentials: true });
   return response.data.isAuthenticated;
 };
 
 const App = () => {
 
   const [auth, setAuth] = useState(false);
+  const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
       ( async () => {
-          const response = await isAuthorized();
+          const response = await isAuthorized(false)
           setAuth(response);
+          setLoaded(true)
       }) ();
   }, [auth]);
 
-  return (
-    <Router>
+  let routes = () => {
+    return (
+      <Router>
       <Switch>
         <Route exact path="/">
           { auth ? <Redirect to="/dashboard" /> : <LandingPage /> }
@@ -59,6 +62,13 @@ const App = () => {
         
       </Switch>
     </Router>
+    );
+  };
+
+  return (
+    <div>
+      {loaded ? routes() : <div>Loading</div>}
+    </div>
   );
 };
 
