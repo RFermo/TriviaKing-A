@@ -1,4 +1,4 @@
-const dbQuery = require("../db/query.js");
+const {dbQuery, dbQueryAll} = require("../db/query.js");
 const bcrypt = require('bcryptjs');
 
 exports.findOne = async (user) => {
@@ -44,3 +44,44 @@ exports.isTaken = async (user) => {
     })
     .catch(error => error);
 };
+
+exports.createProfile = async (userId) => {
+  let sql = "INSERT INTO ?? (??) values (?)";
+  let values = ["profile", "id", userId];
+  return await dbQuery(sql, values);
+};
+
+exports.getProfileById = async (userId) => {
+  let sql = "SELECT * FROM ?? WHERE ?? = ?";
+  let values = ["profile", "id", userId];
+  return await dbQuery(sql, values);
+};
+
+exports.getAllProfiles = async () => {
+  let sql = "SELECT *, ?? FROM ??, ??"
+  let values = ["profile"];
+  return await dbQueryAll(sql, values);
+};
+
+exports.updateProfile = async (userId, profile) => {
+  let sql = "UPDATE ?? SET ";
+  const length = Object.keys(profile).length - 1;
+  Object.keys(profile).forEach((key, index) => {
+    sql += `${key} = ${profile[key]}`
+    if (index < length) sql += ', ';
+    else sql += ' ';
+  })
+  sql += `WHERE ?? = ?`;
+  values = ["profile", "id", userId];
+  return await dbQuery(sql, values);
+};
+
+exports.getHighscores = async () => {
+  let sql = "SELECT ??.??, ??.?? FROM ??, ?? WHERE ??.?? = ??.??";
+  let values = [
+    "users", "username", "profile", "highscore", "users", "profile",
+    "users", "id", "profile", "id"
+  ];
+  return await dbQueryAll(sql, values);
+};
+
