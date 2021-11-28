@@ -44,3 +44,9 @@ exports.isTaken = async (user) => {
     })
     .catch(error => error);
 };
+
+exports.createProfile = async(userId) => {
+  let sql = "INSERT INTO ?? (??) values (?)";
+  let values = ["profile", "id", userId];
+  return await dbQuery(sql, values);
+};
