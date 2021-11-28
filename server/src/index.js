@@ -1,45 +1,35 @@
+// Environment variables
 require('dotenv/config');
+
 const express = require('express');
+const app = express();
 
 const cookieParser = require('cookie-parser');
-const cors = require('cors');
-// const { verify } = require('jsonwebtoken');
-const { authToken, refreshToken, verifyToken } = require('../routes/tokens');
-
-const server = express();
-
-// Middleware for configuration
-server.use(cookieParser());
+app.use(cookieParser());
 
 const corsConfiguration = {
-    origin: 'http://localhost:3000',
-    credentials: true,
+  origin: 'http://localhost:3000',
+  credentials: true,
 };
 
+const cors = require('cors');
+app.use(cors(corsConfiguration));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-server.use(cors(corsConfiguration));
-
-
-server.use(express.json());
-server.use(express.urlencoded({ extended: true }));
-
+const session = require('express-session');
+app.use(session(({
+  secret: process.env.SESSION_SECRET,
+  saveUninitialized: false,
+  resave: false
+})));
 
 // Routes
-const registerRoute = require('../routes/register');
-const loginRoute = require('../routes/login');
-const logoutRoute = require('../routes/logout');
-const protectedRoute = require('../routes/protected');
+const routes = require('../routes/routes');
+routes(app);
 
-server.post('/register', registerRoute);
-server.post('/login', loginRoute);
-server.get('/logout', logoutRoute);
-server.get('/refresh_token', refreshToken);
-server.get('/verify', verifyToken);
-server.post('/protected', authToken, protectedRoute);
-
-// Server
-
-server.listen(process.env.PORT, () => {
-  console.log(`TriviaKing backend server (Express)\nURL: http://localhost:${process.env.PORT}`);
+// app
+app.listen(process.env.PORT, () => {
+  console.log(`TriviaKing backend app (Express)`);
+  console.log(`URL: http://localhost:${process.env.PORT}`);
 });
-

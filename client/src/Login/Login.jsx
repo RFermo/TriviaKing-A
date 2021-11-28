@@ -13,7 +13,7 @@ const Login = () => {
 
         event.preventDefault();
         try {
-            const response = await Axios.post("http://localhost:4000/login", {
+            const response = await Axios.post("http://localhost:4000/user/login", {
                 username: username,
                 password: password
             }, {withCredentials: true});
