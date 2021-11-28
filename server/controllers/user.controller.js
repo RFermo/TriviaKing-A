@@ -63,6 +63,24 @@ exports.updateProfile = async (req, res) => {
   })
 };
 
+exports.getProfile = async (req, res) => {
+  await User.getProfileById(req.user.id)
+  .then(data => sendMessage(res, true, data))
+  .catch(error => sendMessage(res, false, 'Failed to get profile'));
+}
+
+exports.getAllProfiles = async(req, res) => {
+  await User.getAllProfiles()
+  .then(data => sendMessage(res, true, data))
+  .catch(error => sendMessage(res, false, 'Failed to get profiles'))
+}
+
+exports.getHighscores = async(req, res) => {
+  await User.getHighscores()
+  .then(data => sendMessage(res, true, data))
+  .catch(error => sendMessage(res, false, error));
+}
+
 let sendMessage = (res, success, message) => {
   res.send({ success, message });
 }

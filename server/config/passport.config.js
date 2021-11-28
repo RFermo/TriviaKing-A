@@ -7,20 +7,15 @@ const { findOne, findById } = require('../models/user.model');
 passport.use(new LocalStrategy(
     async (username, password, done) => {
         const user = { username, password, email: null }
-
         const foundUser = await findOne(user)
             .then(data => data)
             .catch(error => {
                 console.log(`An error occurred:\n${error}`);
                 return done(error);
             });
-
-        console.log(`foundUser has been set to: ${foundUser}`)
-
         if (!foundUser) {
             return done(null, false, { message: `Invalid Username` });
         }
-
         await bcrypt.compare(user.password, foundUser.hash)
             .then(authenticated => {
                 if (!authenticated) done(null, false, `Invalid Password`);
