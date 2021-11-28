@@ -52,8 +52,10 @@ exports.createProfile = async (userId) => {
 };
 
 exports.getProfileById = async (userId) => {
-  let sql = "SELECT * FROM ?? WHERE ?? = ?";
-  let values = ["profile", "id", userId];
+  let sql = "SELECT ??.??, ??.* FROM ??, ?? WHERE ??.?? = ??.?? AND ??.?? = ?";
+  let values = [
+    "users", "username","profile", "users", "profile",
+    "users", "id", "profile", "id", "users", "id", userId];
   return await dbQuery(sql, values);
 };
 
