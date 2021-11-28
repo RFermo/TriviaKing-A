@@ -18,26 +18,29 @@ const Register = () => {
         event.preventDefault();
     
         try {
-            const response = await Axios.post("http://localhost:4000/register", {
+            let registrationResponse = await Axios.post("http://localhost:4000/user/register", {
                 username: username,
                 email: email,
                 password: password
             });
+            registrationResponse = registrationResponse.data;
 
-            const user_reg_feedback = response.data.message;
-
-            if (user_reg_feedback === "User created") {
-
-                /*
-                    Maybe do some token handling stuff here to prevent users from going back to signup if they 
-                    signed up already?
-                */ 
-
+            if (registrationResponse.success) {
+                const response = await Axios.post("http://localhost:4000/user/login", {
+                    username: username,
+                    password: password
+                }, {withCredentials: true});
+    
+                const user_login_feedback = response.data;
+    
+                if (user_login_feedback.isAuthenticated) {
+                    window.location.replace("http://localhost:3000/dashboard");
+                }
                 history.push("/dashboard"); // If user is authenticated push him to dashboard page
             }
 
             else {
-                setRegisterStatus(user_reg_feedback);
+                setRegisterStatus(registrationResponse.message);
             }
         }
     
