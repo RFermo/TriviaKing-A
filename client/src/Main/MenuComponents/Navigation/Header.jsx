@@ -10,7 +10,7 @@ const Header = () => {
     const [menuButton, setMenuButton] = useState(false);
 
     const logout = async () => {
-        await axios.get("http://localhost:4000/logout", { withCredentials: true });
+        await axios.delete("http://localhost:4000/user/logout", { withCredentials: true });
         window.location.replace("http://localhost:3000/login")
     };
 
