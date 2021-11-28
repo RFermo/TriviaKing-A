@@ -27,12 +27,6 @@ const Register = () => {
             const user_reg_feedback = response.data.message;
 
             if (user_reg_feedback === "User created") {
-
-                /*
-                    Maybe do some token handling stuff here to prevent users from going back to signup if they 
-                    signed up already?
-                */ 
-
                 history.push("/dashboard"); // If user is authenticated push him to dashboard page
             }
 
@@ -78,7 +72,7 @@ const Register = () => {
                         <div className="border-t-2 border-gray-300 w-full"></div>
                     </div>
 
-                    <form onSubmit={registerUser}>
+                    <form data-testid="registerForm" onSubmit={registerUser}>
                         <div className="relative">
                             <label className="text-lg font-inter font-bold">Username</label>
                             <p className="text-xs md:text-sm font-inter font-light">Between 4 and 16 characters long, hyphen and dash allowed</p>
@@ -134,13 +128,13 @@ const Register = () => {
                         <div>
                             Already have an account?
                         </div>
-                        <Link to="/login" className="underline font-bold">Login here</Link>
+                        <a href="/login" className="underline font-bold">Login here</a>
                     </div>
 
                 </div>
             
                 <div className="mt-6 font-inter font-light">
-                    By signing up, you agree to our <Link to="/privacy" className="underline font-bold">Privacy Policy</Link> and <Link to="/terms" className="underline font-bold">Terms of Use</Link> 
+                    By signing up, you agree to our <a href="/privacy" className="underline font-bold">Privacy Policy</a> and <a href="/terms" className="underline font-bold">Terms of Use</a> 
                 </div>
             </div>
         </div>

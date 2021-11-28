@@ -7,6 +7,7 @@ import Options from "../Options/Options";
 import Countdown from "../Countdown/Countdown";
 import Lifelines from "../Lifelines/Lifelines";
 import Gameover from "../Gameover/Gameover";
+import Winner from "../Winner/Winner";
 import correctSound from "../sounds/correct.wav";
 import wrongSound from "../sounds/wrong.wav";
 import playSound from "../sounds/play.wav";
@@ -32,7 +33,7 @@ const Play = () => {
     const [loading, setLoading] = useState(false);
     const [currQuestion, setCurrQuestion] = useState(0);
     const [showTimer, setShowTimer] = useState(false);
-    const [currentTime, setCurrentTime] = useState(10);
+    const [currentTime, setCurrentTime] = useState(40);
     const [startGame, setStartGame] = useState(false);
     const [playButton, setPlayButton] = useState(false);
     const [userClicked, setUserClicked] = useState(false);
@@ -40,6 +41,7 @@ const Play = () => {
     const [score, setScore] = useState(0);
     const [btnClicked, setBtnClicked] = useState(null);
     const [gameOver, setGameOver] = useState(false);
+    const [winner, setWinner] = useState(false);
     const [error, setError] = useState(null);
 
     const correct_audio = new Audio(correctSound);
@@ -92,7 +94,7 @@ const Play = () => {
             setFifty(false);
             setChangeQuestion(false);
             setDisableLifeline(false);
-            setCurrentTime(10);
+            setCurrentTime(40);
             setShowTimer(true);
         }
     };
@@ -113,15 +115,16 @@ const Play = () => {
         if (answer === correct_answer && !gameOver) {
 
             if (currQuestion === 12) {
-                console.log("You are the KING!");
+                setWinner(true);
             }
 
             else {
                 button.add(...correctClasses);
-                correct_audio.play();
                 setNext(!next);
-                setScore(score + 1);
             }
+
+            correct_audio.play();
+            setScore(score + 1);
         }
 
         else {
@@ -227,6 +230,10 @@ const Play = () => {
                 {startGame && 
                     <div className="w-11/12 md:w-5/6 lg:w-3/4 xl:w-2/3 2xl:w-7/12 h-[660px] md:h-[680px] lg:h-[750px] xl:h-[633px] 2xl:h-[750px] bg-gray-300 rounded-xl relative">
 
+                        {/* Only for demonstration purposes */}
+
+                        {console.log(decodeURIComponent(questions[currQuestion].correct_answer))}
+
                         <div className="absolute top-3 right-3 xl:top-8 xl:right-8">
                             { showTimer && <Countdown curr={currentTime} setCurr={setCurrentTime} userClicked={userClicked} setUserClicked={setUserClicked} /> }
                         </div>
@@ -286,6 +293,8 @@ const Play = () => {
                     </div>
                 }
             </div>
+
+            { winner ? <Winner score={score} amountChangeUsed={amountChangeUsed} amount50Used={amount50Used} /> : null }
 
             { gameOver || currentTime === 0 ? <Gameover score={score} amountChangeUsed={amountChangeUsed} amount50Used={amount50Used} /> : null}
         </div>

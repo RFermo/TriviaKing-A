@@ -8,6 +8,7 @@ import Profile from "./Main/MenuComponents/Profile/Profile";
 import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
 import axios from "axios";
 import Privacy from './Main/Misc/Privacy';
+import Terms from "./Main/Misc/Terms";
 
 export const isAuthorized = async () => {
   const response = await axios.get('http://localhost:4000/verify', { withCredentials: true });
@@ -53,7 +54,7 @@ const App = () => {
         </Route>
 
         <Route exact path="/terms">
-          <Privacy />
+          <Terms />
         </Route>
         
       </Switch>

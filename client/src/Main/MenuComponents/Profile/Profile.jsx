@@ -2,7 +2,7 @@ import Header from "../Navigation/Header";
 
 const Profile = () => {
 
-    // Need to fetch username, questions answered correctly, lifelines remaining, highest score achieved.
+    // Need to fetch username, questions answered correctly, lifelines remaining, highest score achieved, times beaten the game.
 
     return (
         <div className="min-h-screen bg-purple-900">
@@ -36,6 +36,12 @@ const Profile = () => {
 
                         <div className="font-inter font-semibold text-lg xl:text-xl">
                            Highest score achieved: 4
+                        </div>
+
+                        <div className="border-t-2 border-white"></div>
+
+                        <div className="font-inter font-semibold text-lg xl:text-xl">
+                           Times you have won the game: 0
                         </div>
                     </div>
                 </div>
