@@ -48,7 +48,7 @@ const Profile = () => {
                         <div>
                             <div className="flex w-85 mx-auto flex-col space-y-4 py-6">
                                 <div className="font-inter font-semibold text-lg xl:text-xl">
-                                    Username: RFermo98
+                                    Username: {userData.username}
                                 </div>
 
                                 <div className="border-t-2 border-white"></div>

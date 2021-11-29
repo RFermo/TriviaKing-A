@@ -2,7 +2,6 @@ import { FaGoogle, FaUser, FaKey } from "react-icons/fa";
 import { HiOutlineMail } from "react-icons/hi";
 import { useState } from "react";
 import Axios from "axios";
-import { Link, useHistory } from "react-router-dom";
 import TKlogo from "../Main/images/TKLogo.png";
 
 const Register = () => {
@@ -11,7 +10,6 @@ const Register = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [registerStatus, setRegisterStatus] = useState("none");
-    const history = useHistory();
 
     const registerUser = async (event) => {
 
@@ -36,7 +34,6 @@ const Register = () => {
                 if (user_login_feedback.isAuthenticated) {
                     window.location.replace("http://localhost:3000/dashboard");
                 }
-                history.push("/dashboard"); // If user is authenticated push him to dashboard page
             }
 
             else {

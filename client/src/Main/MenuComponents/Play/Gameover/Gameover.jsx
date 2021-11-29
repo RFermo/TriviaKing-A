@@ -1,3 +1,4 @@
+import Axios from "axios";
 import React, { useState, useEffect } from 'react';
 import { FaSadTear, FaGrinStars, FaHome, FaArrowUp } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
@@ -8,38 +9,70 @@ const high_score_sound = new Audio(highScoreSound);
 const Gameover = (props) => {
 
     const [showModal, setShowModal] = useState(false);
-    const [highScore, setHighScore] = useState(0);
     const [playSound, setPlaySound] = useState(false);
-
-    /*
-        We need to fetch the username and the highest score from the database and we also need to update
-        the highest score in case the score that the user got (props.score) is bigger than his previous
-        highest score so we would need some sort of update request to the database. Also, if the amount
-        of lifelines used (props.amount50, props.amountChange) is bigger than 0 we need to update their current lifelines
-        in the database so that also needs an update request.
-    */
+    const [userData, setUserData] = useState({});
 
     useEffect(() => {
+
+        const fetchUserData = async () => {
+
+            try {
+                const userResponse = await Axios.get("http://localhost:4000/user/get_profile", {withCredentials: true});
+                setUserData(userResponse.data.message);
+            }
+
+            catch (err) {
+                console.error(err);
+            }
+        };
+
         const interval = setInterval(() => {
             setShowModal(true);
         }, 1500);
+
+        fetchUserData();
 
         return () => clearInterval(interval)
     }, []);
 
     useEffect(() => {
 
-        // Fetch high score here with Axios.
-        
+        const updateUserData = async () => {
+
+            try {
+
+                if (props.score === 0 && (props.amount50Used === 0 && props.amountChangeUsed === 0)) {
+                    return;
+                }
+
+                else {
+                    const response = await Axios.put("http://localhost:4000/user/update_profile", {
+                        highscore: props.score,
+                        num_correct_answers: userData.num_correct_answers + props.score,
+                        remaining_fifty_fiftys: userData.remaining_fifty_fiftys - props.amount50Used,
+                        remaining_change_questions: userData.remaining_change_questions - props.amountChangeUsed
+                    }, {withCredentials: true});
+
+                    console.log(response.data);
+                }
+            }
+
+            catch (err) {
+                console.error(err);
+            }
+        };
+
         const interval = setInterval(() => {
-            if (props.score > highScore) {
+            if (props.score > userData.highscore) {
                 setPlaySound(true);
             }
         }, 1500);
 
+        updateUserData();
+
         return () => clearInterval(interval)
 
-    }, [props.score, highScore]);
+    }, [props.score, userData.highscore, props.amount50Used, props.amountChangeUsed, userData.num_correct_answers, userData.remaining_change_questions, userData.remaining_fifty_fiftys]);
 
     const audioPlay = () => {
         high_score_sound.play();
@@ -47,7 +80,7 @@ const Gameover = (props) => {
 
     return (
         <div>
-            {showModal &&
+            {(showModal && userData) &&
                 <div>
                     <div id="slider" className="flex justify-center items-center overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none slide-in">
                         <div className="relative my-6 mx-auto w-5/6 lg:w-3/4 xl:w-[700px]">
@@ -59,7 +92,7 @@ const Gameover = (props) => {
                                     <p className="text-gray-200 font-inter font-semibold text-3xl xl:text-4xl">Game over!</p>
                                 </div>
 
-                                <div className={`${props.score > highScore ? `block` : `hidden`}`}>
+                                <div className={`${props.score > userData.highscore ? `block` : `hidden`}`}>
 
                                     <div className="bg-purple-900 mt-2 relative rounded-lg px-3 py-2">
                                         <h1 className="text-gray-200 font-inter text-lg lg:text-xl text-center">
@@ -67,7 +100,7 @@ const Gameover = (props) => {
                                         </h1>
                                         
                                         <div className="absolute -bottom-5 -right-5 bg-yellow-400 px-2 py-1 rounded-lg">
-                                            <p className="font-inter text-sm">NEW</p>
+                                            <p className="font-inter font-semibold text-sm">NEW</p>
                                         </div>
                                     </div>
 
@@ -78,14 +111,14 @@ const Gameover = (props) => {
 
                                 <ul className="flex flex-col list-disc list-inside space-y-3">
                                     <li className="text-xl xl:text-2xl font-inter">
-                                        User: <span className="font-semibold">RFermo98</span>
+                                        User: <span className="font-semibold">{userData.username}</span>
                                     </li>
                                     <li className="text-xl xl:text-2xl font-inter">
                                         Score: <span className="font-semibold">{props.score}</span>
                                     </li>
-                                    <li className="text-xl xl:text-2xl font-inter">
+                                    {/* <li className="text-xl xl:text-2xl font-inter">
                                         Highest score: <span className="font-semibold">10</span>
-                                    </li>
+                                    </li> */}
                                     <li className="text-xl xl:text-2xl font-inter">
                                         Lifelines used: <span className="font-semibold">{props.amount50Used + props.amountChangeUsed}</span>
                                     </li>

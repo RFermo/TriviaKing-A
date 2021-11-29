@@ -13,13 +13,6 @@ import wrongSound from "../sounds/wrong.wav";
 import playSound from "../sounds/play.wav";
 import { Link } from "react-router-dom";
 
-
-/* 
-    Create states to hold the number of 50:50s that the user has and the number of questions that they
-    can change. 
-    Fetch lifelines that user has and set the states in the handleBegin function. Then, pass those states as props to the Lifelines component.
-*/
-
 const Play = () => {
 
     const [questions, setQuestions] = useState([]);
@@ -27,6 +20,8 @@ const Play = () => {
     const [fifty, setFifty] = useState(false);
     const [changeQuestion, setChangeQuestion] = useState(false);
     const [disableLifeline, setDisableLifeline] = useState(false);
+    const [curr5050, setCurr5050] = useState(0);
+    const [currChange, setCurrChange] = useState(0);
     const [amount50Used, setAmount50Used] = useState(0);
     const [amountChangeUsed, setAmountChangeUsed] = useState(0);
     const [choppedAnswers, setChoppedAnswers] = useState([]);
@@ -56,15 +51,24 @@ const Play = () => {
         setLoading(true);
 
         try {
+
+            /* Questions API */
+
             const easyResponse = await Axios.get("https://opentdb.com/api.php?amount=5&difficulty=easy&type=multiple&encode=url3986");
             const mediumResponse = await Axios.get("https://opentdb.com/api.php?amount=4&difficulty=medium&type=multiple&encode=url3986");
             const hardResponse = await Axios.get("https://opentdb.com/api.php?amount=4&difficulty=hard&type=multiple&encode=url3986");
+
+            /* User lifeline fetching */
+
+            const lifelineResponse = await Axios.get("http://localhost:4000/user/get_profile", {withCredentials: true});
 
             let [easyArr, mediumArr, hardArr] = [easyResponse.data.results, mediumResponse.data.results, hardResponse.data.results];
             appendAndShuffle(easyArr, mediumArr, hardArr);
             
             setQuestions([...easyArr, ...mediumArr, ...hardArr]);
             setLoading(false);
+            setCurr5050(lifelineResponse.data.message.remaining_fifty_fiftys);
+            setCurrChange(lifelineResponse.data.message.remaining_change_questions);
             setStartGame(true);
             setShowTimer(true);
         }
@@ -277,6 +281,10 @@ const Play = () => {
                                 setDisableLifeline={setDisableLifeline}
                                 currTime={currentTime}
                                 userClicked={userClicked}
+                                curr5050={curr5050}
+                                setCurr5050={setCurr5050}
+                                currChange={currChange}
+                                setCurrChange={setCurrChange}
                                 amount50Used={amount50Used}
                                 setAmount50Used={setAmount50Used}
                                 amountChangeUsed={amountChangeUsed}

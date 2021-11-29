@@ -12,6 +12,7 @@ const Login = () => {
     const loginUser = async (event) => {
 
         event.preventDefault();
+
         try {
             const response = await Axios.post("http://localhost:4000/user/login", {
                 username: username,
@@ -23,13 +24,18 @@ const Login = () => {
             if (user_login_feedback.isAuthenticated) {
                 window.location.replace("http://localhost:3000/dashboard");
             }
-            else {
-                setLoginStatus(user_login_feedback.message);
-            }
         }
 
         catch (err) {
-            console.error(err);
+
+            if (err.response.data === 'Unauthorized') {
+                setLoginStatus("Invalid login data!");
+            }
+
+            else {
+                setLoginStatus('Oops! Something went wrong.')
+            }
+
         }
     };
 
