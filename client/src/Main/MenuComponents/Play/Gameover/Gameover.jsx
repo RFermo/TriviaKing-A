@@ -14,11 +14,40 @@ const Gameover = (props) => {
 
     useEffect(() => {
 
+        const updateData = async (userStats) => {
+
+            try {
+    
+                if (props.score === 0 && (props.amount50Used === 0 && props.amountChangeUsed === 0)) {
+                    return;
+                }
+    
+                if (props.score > userStats.highscore) {
+                    setPlaySound(true);
+                }
+        
+                const response = await Axios.put("http://localhost:4000/user/update_profile", {
+                    highscore: props.score,
+                    num_correct_answers: userStats.num_correct_answers + props.score,
+                    remaining_fifty_fiftys: userStats.remaining_fifty_fiftys - props.amount50Used,
+                    remaining_change_questions: userStats.remaining_change_questions - props.amountChangeUsed
+                }, {withCredentials: true});
+        
+                console.log(response.data);
+            }
+    
+            catch (err) {
+                console.error(err);
+            }
+        };
+
         const fetchUserData = async () => {
 
             try {
                 const userResponse = await Axios.get("http://localhost:4000/user/get_profile", {withCredentials: true});
-                setUserData(userResponse.data.message);
+                const userStats = userResponse.data.message;
+                setUserData(userStats);
+                updateData(userStats);
             }
 
             catch (err) {
@@ -33,46 +62,8 @@ const Gameover = (props) => {
         fetchUserData();
 
         return () => clearInterval(interval)
-    }, []);
 
-    useEffect(() => {
-
-        const updateUserData = async () => {
-
-            try {
-
-                if (props.score === 0 && (props.amount50Used === 0 && props.amountChangeUsed === 0)) {
-                    return;
-                }
-
-                else {
-                    const response = await Axios.put("http://localhost:4000/user/update_profile", {
-                        highscore: props.score,
-                        num_correct_answers: userData.num_correct_answers + props.score,
-                        remaining_fifty_fiftys: userData.remaining_fifty_fiftys - props.amount50Used,
-                        remaining_change_questions: userData.remaining_change_questions - props.amountChangeUsed
-                    }, {withCredentials: true});
-
-                    console.log(response.data);
-                }
-            }
-
-            catch (err) {
-                console.error(err);
-            }
-        };
-
-        const interval = setInterval(() => {
-            if (props.score > userData.highscore) {
-                setPlaySound(true);
-            }
-        }, 1500);
-
-        updateUserData();
-
-        return () => clearInterval(interval)
-
-    }, [props.score, userData.highscore, props.amount50Used, props.amountChangeUsed, userData.num_correct_answers, userData.remaining_change_questions, userData.remaining_fifty_fiftys]);
+    }, [props.amount50Used, props.amountChangeUsed, props.score]);
 
     const audioPlay = () => {
         high_score_sound.play();
