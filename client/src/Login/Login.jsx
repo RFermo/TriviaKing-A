@@ -4,6 +4,24 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import TKlogo from "../Main/images/TKLogo.png";
 
+import { GoogleLogin } from 'react-google-login';
+
+const responseGoogle = (response) => {
+    console.log(response);
+}
+
+// const googleLogin = () => {
+//     return (
+//         <GoogleLogin
+//             clientId="83841563782-lu59i4jj47gpufaus6k6621r9k2oi9r8.apps.googleusercontent.com"
+//             buttonText="Login"
+//             onSuccess={responseGoogle}
+//             onFailure={responseGoogle}
+//             cookiePolicy={'single_host_origin'}
+//         />
+//     )
+// }
+
 const Login = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -16,7 +34,7 @@ const Login = () => {
             const response = await Axios.post("http://localhost:4000/user/login", {
                 username: username,
                 password: password
-            }, {withCredentials: true});
+            }, { withCredentials: true });
 
             const user_login_feedback = response.data;
 
@@ -35,12 +53,12 @@ const Login = () => {
 
     return (
         <div className="min-h-screen flex justify-center items-center bg-gradient-to-tr from-purple-900 to-purple-700">
-  
+
             <div className="w-5/6 lg:w-11/12 xl:w-4/5 2xl:w-3/5 flex flex-col lg:flex-row my-10 lg:my-0">
                 <div className="lg:w-1/2">
-                    <img className="h-[250px] md:h-[375px] lg:h-[670px] xl:h-[675px] w-full object-cover rounded-tr-xl lg:rounded-tr-none rounded-tl-xl lg:rounded-bl-xl" 
-                        src="https://cdn.pixabay.com/photo/2018/03/21/07/16/learning-3245793_960_720.jpg" 
-                        alt="Light bulb" 
+                    <img className="h-[250px] md:h-[375px] lg:h-[670px] xl:h-[675px] w-full object-cover rounded-tr-xl lg:rounded-tr-none rounded-tl-xl lg:rounded-bl-xl"
+                        src="https://cdn.pixabay.com/photo/2018/03/21/07/16/learning-3245793_960_720.jpg"
+                        alt="Light bulb"
                     />
                 </div>
 
@@ -50,7 +68,7 @@ const Login = () => {
 
                     <div className="w-4/5 mx-auto flex flex-col space-y-5 md:space-y-5 mt-10 lg:mt-6">
 
-                        <a href="/" className="google-btn">
+                        {/* <a href="/" className="google-btn">
                             <div className="flex items-center justify-center md:justify-start space-x-3">
                                 <div>
                                     <FaGoogle className="w-5 h-5 md:w-6 md:h-6"/>
@@ -60,7 +78,15 @@ const Login = () => {
                                     Continue with Google
                                 </div>
                             </div>
-                        </a>
+                        </a> */}
+                        <GoogleLogin
+                            clientId="83841563782-lu59i4jj47gpufaus6k6621r9k2oi9r8.apps.googleusercontent.com"
+                            buttonText="Login"
+                            onSuccess={responseGoogle}
+                            onFailure={responseGoogle}
+                            cookiePolicy={'single_host_origin'}
+                        />
+
 
                         <div className="flex items-center space-x-3">
                             <div className="border-t-2 border-gray-300 w-full"></div>
@@ -72,8 +98,8 @@ const Login = () => {
                             <div className="relative">
                                 <label className="md:text-lg font-inter font-bold">Username</label>
                                 <FaUser className="absolute bottom-[11px] left-[20px]" />
-                                <input 
-                                    className="input-field" 
+                                <input
+                                    className="input-field"
                                     type="text"
                                     required={true}
                                     onChange={(e) => setUsername(e.target.value)}
@@ -83,8 +109,8 @@ const Login = () => {
                             <div className="mt-4 relative">
                                 <label className="md:text-lg font-inter font-bold">Password</label>
                                 <FaKey className="absolute bottom-[11px] left-[20px]" />
-                                <input 
-                                    className="input-field" 
+                                <input
+                                    className="input-field"
                                     type="password"
                                     required={true}
                                     onChange={(e) => setPassword(e.target.value)}
@@ -121,5 +147,5 @@ const Login = () => {
         </div>
     );
 };
- 
+
 export default Login;
