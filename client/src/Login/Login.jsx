@@ -6,21 +6,12 @@ import TKlogo from "../Main/images/TKLogo.png";
 
 import { GoogleLogin } from 'react-google-login';
 
-const responseGoogle = (response) => {
-    console.log(response);
+let handleGoogleLogin = async (data) => {
+    console.log(`First we output what we have:\n${data}`);
+    await Axios.post('/user/login/google', {
+        token: data.tokenId
+    });
 }
-
-// const googleLogin = () => {
-//     return (
-//         <GoogleLogin
-//             clientId="83841563782-lu59i4jj47gpufaus6k6621r9k2oi9r8.apps.googleusercontent.com"
-//             buttonText="Login"
-//             onSuccess={responseGoogle}
-//             onFailure={responseGoogle}
-//             cookiePolicy={'single_host_origin'}
-//         />
-//     )
-// }
 
 const Login = () => {
     const [username, setUsername] = useState("");
@@ -74,22 +65,11 @@ const Login = () => {
 
                     <div className="w-4/5 mx-auto flex flex-col space-y-5 md:space-y-5 mt-10 lg:mt-6">
 
-                        {/* <a href="/" className="google-btn">
-                            <div className="flex items-center justify-center md:justify-start space-x-3">
-                                <div>
-                                    <FaGoogle className="w-5 h-5 md:w-6 md:h-6"/>
-                                </div>
-                                
-                                <div className="font-inter xl:text-lg">
-                                    Continue with Google
-                                </div>
-                            </div>
-                        </a> */}
                         <GoogleLogin
                             clientId="83841563782-lu59i4jj47gpufaus6k6621r9k2oi9r8.apps.googleusercontent.com"
                             buttonText="Login"
-                            onSuccess={responseGoogle}
-                            onFailure={responseGoogle}
+                            onSuccess={handleGoogleLogin}
+                            onFailure={handleGoogleLogin}
                             cookiePolicy={'single_host_origin'}
                         />
 

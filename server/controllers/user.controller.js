@@ -48,6 +48,16 @@ exports.login = async (req, res) => {
   });
 }
 
+exports.googleLogin = async (req, res) => {
+  const user = req.body;
+  const message = `We have received the token: ${user.token}`
+  console.log(message);
+  res.send({
+    success: true,
+    message
+  })
+};
+
 exports.logout = (req, res) => {
   req.logOut();
   return sendMessage(res, true, 'You have logged out successfully');
