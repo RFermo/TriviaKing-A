@@ -104,8 +104,14 @@ const Login = () => {
                             <div className="relative">
                                 <label className="md:text-lg font-inter font-bold">Username</label>
                                 <FaUser className="absolute bottom-[11px] left-[20px]" />
+<<<<<<< HEAD
                                 <input
                                     className="input-field"
+=======
+                                <input 
+                                    className="input-field"
+                                    data-testid="username-field" 
+>>>>>>> d2201439a5df15d3fc0f7804dc81a44317507d34
                                     type="text"
                                     required={true}
                                     onChange={(e) => setUsername(e.target.value)}
@@ -115,8 +121,14 @@ const Login = () => {
                             <div className="mt-4 relative">
                                 <label className="md:text-lg font-inter font-bold">Password</label>
                                 <FaKey className="absolute bottom-[11px] left-[20px]" />
+<<<<<<< HEAD
                                 <input
                                     className="input-field"
+=======
+                                <input 
+                                    className="input-field" 
+                                    data-testid="password-field"
+>>>>>>> d2201439a5df15d3fc0f7804dc81a44317507d34
                                     type="password"
                                     required={true}
                                     onChange={(e) => setPassword(e.target.value)}
