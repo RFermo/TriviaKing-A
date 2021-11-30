@@ -15,13 +15,6 @@ exports.isAuthorized = (req, res) => {
   return res.send({ isAuthenticated: req.isAuthenticated() });
 };
 
-exports.findOne = async (req, res) => {
-  const user = req.body;
-  await User.findOne(user)
-    .then(data => res.send({ token: data.refresh_token }))
-    .catch(error => { console.log(`Failed to find user: \n ${error}`) });
-}
-
 exports.register = async (req, res) => {
   const user = req.body;
   const exists = await User.isTaken(user);
@@ -45,7 +38,6 @@ exports.protected = async (req, res) => {
 }
 
 exports.login = async (req, res) => {
-  console.log(`model.user.login sending successful login!`);
   return res.send({
     isAuthenticated: true,
     message: 'Logged in!'

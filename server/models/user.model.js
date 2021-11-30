@@ -26,12 +26,12 @@ exports.findById = async (id) => {
 }
 
 exports.register = async (user) => {
-  const { username, email, password, refreshToken } = user;
+  const { username, email, password } = user;
   const hash = await bcrypt.hash(password, 10);
-  let sql = "INSERT INTO ?? (??, ??, ??, ??, ??) VALUES (?, ?, ?, ?, ?)";
+  let sql = "INSERT INTO ?? (??, ??, ??, ??) VALUES (?, ?, ?, ?)";
   let values = [
-    "users", "id", "username", "email", "hash", "refresh_token",
-    null, username, email, hash, refreshToken
+    "users", "id", "username", "email", "hash",
+    null, username, email, hash
   ];
   return await dbQuery(sql, values);
 };
@@ -122,7 +122,7 @@ exports.verifyToken = async (token) => {
 exports.createGoogleProfile = async (email) => {
   const username = email.substring(0, email.indexOf('@'));
   const password = generator.generate({ length: 8, numbers: true, strict: true });
-  const user = { email, username, password, refreshToken: '' };
+  const user = { email, username, password };
   await exports.register(user);
   const createdUser = await exports.findOne(user);
   await exports.createProfile(createdUser.id);
