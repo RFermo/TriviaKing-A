@@ -1,6 +1,7 @@
 import { FaGoogle, FaUser, FaKey } from "react-icons/fa";
 import { HiOutlineMail } from "react-icons/hi";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import Axios from "axios";
 import TKlogo from "../Main/images/TKLogo.png";
 
@@ -84,7 +85,8 @@ const Register = () => {
                             <p className="text-xs md:text-sm font-inter font-light">Between 4 and 16 characters long, hyphen and dash allowed</p>
                             <FaUser className="absolute bottom-[11px] left-[20px]" />
                             <input 
-                                className="input-field" 
+                                className="input-field"
+                                data-testid="name-field" 
                                 type="text"
                                 required={true}
                                 pattern="[a-zA-Z0-9-_]+"
@@ -98,7 +100,8 @@ const Register = () => {
                             <label className="text-lg font-inter font-bold">Email</label>
                             <HiOutlineMail className="absolute bottom-[11px] left-[20px] w-5 h-5" />
                             <input 
-                                className="input-field" 
+                                className="input-field"
+                                data-testid="email-input" 
                                 type="email"
                                 required={true}
                                 onChange={(e) => setEmail(e.target.value)}
@@ -111,6 +114,7 @@ const Register = () => {
                             <FaKey className="absolute bottom-[11px] left-[20px]" />
                             <input 
                                 className="input-field" 
+                                data-testid="password-field"
                                 type="password"
                                 required={true}
                                 pattern="^(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9-_]+"
@@ -120,13 +124,13 @@ const Register = () => {
                         </div>
 
                         <div className="pt-2 mt-6">
-                            <button type="submit" className="sign-up-login-btn">
+                            <button data-testid="signup" type="submit" className="sign-up-login-btn">
                                 SIGN UP
                             </button>
                         </div>
                     </form>
 
-                    <div className={`${registerStatus === "none" ? "hidden" : "block"} bg-red-600 w-max p-2 rounded-md cursor-default`}>
+                    <div data-testid="signup_error" className={`${registerStatus === "none" ? "hidden" : "block"} bg-red-600 w-max p-2 rounded-md cursor-default`}>
                         <p className="font-inter text-gray-200">{registerStatus}</p>
                     </div>
                     
@@ -140,7 +144,7 @@ const Register = () => {
                 </div>
             
                 <div className="mt-6 font-inter font-light">
-                    By signing up, you agree to our <a href="/privacy" className="underline font-bold">Privacy Policy</a> and <a href="/terms" className="underline font-bold">Terms of Use</a> 
+                    By signing up, you agree to our <Link to="/privacy" className="underline font-bold">Privacy Policy</Link> and <Link to="/terms" className="underline font-bold">Terms of Use</Link> 
                 </div>
             </div>
         </div>
