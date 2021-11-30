@@ -21,44 +21,9 @@
   @apply flex focus:outline-none items-center justify-center space-x-3 bg-gray-700 md:hover:bg-gray-900 transition duration-300 shadow-lg py-3 px-8 rounded-lg;
 }
 
-.google-btn {
-  @apply bg-purple-600 text-gray-200 xl:text-black xl:bg-gray-100 xl:border-2 rounded-lg xl:border-purple-900 py-2.5 md:pl-4 xl:fill-link xl:hover:text-white shadow-lg;
-}
-
 /* Custom CSS */
 
 @layer utilities {
-  /* Link getting filled from left to right */
-
-  .fill-link {
-    -webkit-transform: translate3d(0, 0, 0);
-    transform: translate3d(0, 0, 0);
-    -webkit-transition: all 0.3s cubic-bezier(0.455, 0.03, 0.515, 0.955);
-    transition: all 0.3s cubic-bezier(0.455, 0.03, 0.515, 0.955);
-  }
-
-  .fill-link:after {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 0;
-    content: "";
-    z-index: -1;
-    background: rgba(124, 58, 237, 1);
-    -webkit-transition: all 0.3s cubic-bezier(0.785, 0.135, 0.15, 0.86);
-    transition: all 0.3s cubic-bezier(0.785, 0.135, 0.15, 0.86);
-    will-change: width;
-  }
-
-  .fill-link:hover:after {
-    width: 100%;
-  }
-
-  *:after {
-    outline: none;
-  }
-
   /* Prevents alt text from appearing before image loads */
 
   img {

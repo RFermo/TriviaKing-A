@@ -1,4 +1,4 @@
-import { FaGoogle, FaUser, FaKey, FaWindows } from "react-icons/fa";
+import { FaUser, FaKey } from "react-icons/fa";
 import Axios from "axios";
 import { useState } from "react";
 import { Link } from "react-router-dom";
@@ -61,13 +61,13 @@ const Login = () => {
 
             <div className="w-5/6 lg:w-11/12 xl:w-4/5 2xl:w-3/5 flex flex-col lg:flex-row my-10 lg:my-0">
                 <div className="lg:w-1/2">
-                    <img className="h-[250px] md:h-[375px] lg:h-[670px] xl:h-[675px] w-full object-cover rounded-tr-xl lg:rounded-tr-none rounded-tl-xl lg:rounded-bl-xl"
+                    <img className="h-[250px] md:h-[375px] lg:h-[670px] xl:h-[670px] w-full object-cover rounded-tr-xl lg:rounded-tr-none rounded-tl-xl lg:rounded-bl-xl"
                         src="https://cdn.pixabay.com/photo/2018/03/21/07/16/learning-3245793_960_720.jpg"
                         alt="Light bulb"
                     />
                 </div>
 
-                <div className="lg:w-1/2 lg:h-[670px] xl:h-[675px] bg-gray-100 rounded-br-xl rounded-bl-xl lg:rounded-bl-none lg:rounded-tr-xl py-2">
+                <div className="lg:w-1/2 lg:h-[670px] xl:h-[670px] bg-gray-100 rounded-br-xl rounded-bl-xl lg:rounded-bl-none lg:rounded-tr-xl py-2">
                     <img className="w-16 h-16 mx-auto" src={TKlogo} alt="Trivia King logo" />
                     <h1 className="text-4xl mt-2 cursor-default md:text-5xl text-center font-georama text-purple-900 font-extrabold tracking-wider">Trivia King</h1>
 
@@ -75,7 +75,8 @@ const Login = () => {
 
                         <GoogleLogin
                             clientId="83841563782-lu59i4jj47gpufaus6k6621r9k2oi9r8.apps.googleusercontent.com"
-                            buttonText="Login"
+                            className="!font-inter !text-lg !text-gray-800 !rounded-lg"
+                            buttonText="Login with Google"
                             onSuccess={handleGoogleLogin}
                             onFailure={handleGoogleLogin}
                             cookiePolicy={'single_host_origin'}

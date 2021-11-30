@@ -1,4 +1,4 @@
-import { FaGoogle, FaUser, FaKey } from "react-icons/fa";
+import { FaUser, FaKey } from "react-icons/fa";
 import { HiOutlineMail } from "react-icons/hi";
 import { useState } from "react";
 import { Link } from "react-router-dom";
@@ -77,7 +77,8 @@ const Register = () => {
 
                     <GoogleLogin
                         clientId="83841563782-lu59i4jj47gpufaus6k6621r9k2oi9r8.apps.googleusercontent.com"
-                        buttonText="Login"
+                        className="!font-inter !text-lg !text-gray-800 !rounded-lg"
+                        buttonText="Signup with Google"
                         onSuccess={handleGoogleLogin}
                         onFailure={handleGoogleLogin}
                         cookiePolicy={'single_host_origin'}
