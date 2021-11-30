@@ -38,7 +38,7 @@ const Lifelines = ({disableLifeline, userClicked, currTime, curr5050, amount50Us
             }} 
                 className={`bg-gray-800 ${lifelineDisabler() || fiftyDisabler() ? `opacity-40` : `opacity-100`} rounded-lg px-3 py-3 relative shadow-xl`}
             >
-                <p className="text-gray-200 text-lg font-georama">50:50</p>
+                <p data-testid="50-50" className="text-gray-200 text-lg font-georama">50:50</p>
                 <div className="absolute -bottom-3 -right-3 rounded-full w-max h-6 px-2 bg-gray-200 shadow-xl">
                     <p className="font-georama">{curr5050}</p>
                 </div>
@@ -55,7 +55,7 @@ const Lifelines = ({disableLifeline, userClicked, currTime, curr5050, amount50Us
             >
                 <FaExchangeAlt className="w-6 h-6 text-gray-200" />
                 <div className="absolute -bottom-3 -right-3 rounded-full w-max h-6 px-2 bg-gray-200 shadow-xl">
-                    <p className="font-georama">{currChange}</p>
+                    <p data-testid="changeQ" className="font-georama">{currChange}</p>
                 </div>
             </button>
 

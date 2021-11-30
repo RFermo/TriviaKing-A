@@ -1,5 +1,10 @@
-const {dbQuery, dbQueryAll} = require("../db/query.js");
+const { dbQuery, dbQueryAll } = require("../db/query.js");
 const bcrypt = require('bcryptjs');
+
+const generator = require('generate-password');
+const { OAuth2Client } = require('google-auth-library');
+const client = new OAuth2Client(process.env.GOOGLE_CLIENT_SECRET)
+
 
 exports.findOne = async (user) => {
   const { username, email } = user;
@@ -7,6 +12,12 @@ exports.findOne = async (user) => {
   let values = ["users", username, email];
   return await dbQuery(sql, values);
 };
+
+exports.findByEmail = async (email) => {
+  let sql = "SELECT * FROM ?? WHERE email = ?";
+  let values = ["users", email];
+  return await dbQuery(sql, values);
+}
 
 exports.findById = async (id) => {
   let sql = "SELECT * FROM ?? WHERE id = ?";
@@ -24,6 +35,12 @@ exports.register = async (user) => {
   ];
   return await dbQuery(sql, values);
 };
+
+exports.registerGoogle = async (email) => {
+  const atIndex = email.indexOf('@');
+  const username = email.substring(0, atIndex);
+
+}
 
 exports.exists = async (user) => {
   return await exports.findOne(user)
@@ -54,7 +71,7 @@ exports.createProfile = async (userId) => {
 exports.getProfileById = async (userId) => {
   let sql = "SELECT ??.??, ??.* FROM ??, ?? WHERE ??.?? = ??.?? AND ??.?? = ?";
   let values = [
-    "users", "username","profile", "users", "profile",
+    "users", "username", "profile", "users", "profile",
     "users", "id", "profile", "id", "users", "id", userId];
   return await dbQuery(sql, values);
 };
@@ -87,3 +104,27 @@ exports.getHighscores = async () => {
   return await dbQueryAll(sql, values);
 };
 
+// Takes in token, returns a user if in the 'users' database
+exports.verifyToken = async (token) => {
+  try {
+    const response = await client.verifyIdToken({
+      idToken: token,
+      audience: process.env.GOOGLE_CLIENT_SECRET
+    })
+    const { email } = response.getPayload();
+    return email;
+  } catch (error) {
+    console.log(`Error verifying token:\n${error}`)
+    return Error(`Error at Login`)
+  }
+}
+
+exports.createGoogleProfile = async (email) => {
+  const username = email.substring(0, email.indexOf('@'));
+  const password = generator.generate({ length: 8, numbers: true, strict: true });
+  const user = { email, username, password, refreshToken: '' };
+  await exports.register(user);
+  const createdUser = await exports.findOne(user);
+  await exports.createProfile(createdUser.id);
+  return createdUser;
+}

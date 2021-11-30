@@ -1,4 +1,4 @@
-import { FaGoogle, FaUser, FaKey } from "react-icons/fa";
+import { FaGoogle, FaUser, FaKey, FaWindows } from "react-icons/fa";
 import Axios from "axios";
 import { useState } from "react";
 import { Link } from "react-router-dom";
@@ -6,12 +6,7 @@ import TKlogo from "../Main/images/TKLogo.png";
 
 import { GoogleLogin } from 'react-google-login';
 
-let handleGoogleLogin = async (data) => {
-    console.log(`First we output what we have:\n${data}`);
-    await Axios.post('/user/login/google', {
-        token: data.tokenId
-    });
-}
+
 
 const Login = () => {
     const [username, setUsername] = useState("");
@@ -47,6 +42,19 @@ const Login = () => {
 
         }
     };
+
+    let handleGoogleLogin = async (data) => {
+        try {
+            const response = await Axios.post('http://localhost:4000/user/login/google', {
+                username: data.tokenId,
+                token: data.tokenId
+            }, { withCredentials: true })
+            if (response.data.isAuthenticated) window.location.replace('http://localhost:3000/dashboard');
+        } catch (error) {
+            if (error.response.data === 'Unauthorized') setLoginStatus("Invalid login data!");
+            else setLoginStatus('Oops! Something went wrong.')
+        }
+    }
 
     return (
         <div className="min-h-screen flex justify-center items-center bg-gradient-to-tr from-purple-900 to-purple-700">
@@ -86,6 +94,7 @@ const Login = () => {
                                 <FaUser className="absolute bottom-[11px] left-[20px]" />
                                 <input
                                     className="input-field"
+                                    data-testid="username-field"
                                     type="text"
                                     required={true}
                                     onChange={(e) => setUsername(e.target.value)}
@@ -97,6 +106,7 @@ const Login = () => {
                                 <FaKey className="absolute bottom-[11px] left-[20px]" />
                                 <input
                                     className="input-field"
+                                    data-testid="password-field"
                                     type="password"
                                     required={true}
                                     onChange={(e) => setPassword(e.target.value)}

@@ -1,22 +1,15 @@
 import { FaGoogle, FaUser, FaKey } from "react-icons/fa";
 import { HiOutlineMail } from "react-icons/hi";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import Axios from "axios";
 import TKlogo from "../Main/images/TKLogo.png";
 import { GoogleLogin } from 'react-google-login';
 
-
-let handleGoogleLogin = async (data) => {
-    console.log(`First we output what we have:\n${data}`);
-    const response = await Axios.post('/api/v1/auth/google', {
-        token: data.tokenId
-    });
-}
-
 const Register = () => {
 
     const [username, setUsername] = useState("");
-    const [email, setEmail] = useState("");
+    const [email, setEmail] = useState(""); 
     const [password, setPassword] = useState("");
     const [registerStatus, setRegisterStatus] = useState("none");
 
@@ -55,6 +48,19 @@ const Register = () => {
         }
     };
 
+    let handleGoogleLogin = async (data) => {
+        try {
+            const response = await Axios.post('http://localhost:4000/user/login/google', {
+                username: data.tokenId,
+                token: data.tokenId
+            }, { withCredentials: true })
+            if (response.data.isAuthenticated) window.location.replace('http://localhost:3000/dashboard');
+        } catch (error) {
+            if (error.response.data === 'Unauthorized') setRegisterStatus("Invalid login data!");
+            else setRegisterStatus('Oops! Something went wrong.')
+        }
+    }
+
     return (
 
         <div className="w-4/5 mx-auto lg:w-1/2 lg:min-h-screen lg:flex lg:items-center py-8 xl:py-14 2xl:py-0 bg-gray-100">
@@ -88,8 +94,9 @@ const Register = () => {
                             <label className="text-lg font-inter font-bold">Username</label>
                             <p className="text-xs md:text-sm font-inter font-light">Between 4 and 16 characters long, hyphen and dash allowed</p>
                             <FaUser className="absolute bottom-[11px] left-[20px]" />
-                            <input
+                            <input 
                                 className="input-field"
+                                data-testid="name-field" 
                                 type="text"
                                 required={true}
                                 pattern="[a-zA-Z0-9-_]+"
@@ -102,8 +109,9 @@ const Register = () => {
                         <div className="mt-4 relative">
                             <label className="text-lg font-inter font-bold">Email</label>
                             <HiOutlineMail className="absolute bottom-[11px] left-[20px] w-5 h-5" />
-                            <input
+                            <input 
                                 className="input-field"
+                                data-testid="email-input" 
                                 type="email"
                                 required={true}
                                 onChange={(e) => setEmail(e.target.value)}
@@ -114,8 +122,9 @@ const Register = () => {
                             <label className="text-lg font-inter font-bold">Password</label>
                             <p className="text-xs md:text-sm font-inter font-light" >At least 8 characters long, at least a number, at least an uppercase letter</p>
                             <FaKey className="absolute bottom-[11px] left-[20px]" />
-                            <input
-                                className="input-field"
+                            <input 
+                                className="input-field" 
+                                data-testid="password-field"
                                 type="password"
                                 required={true}
                                 pattern="^(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9-_]+"
@@ -125,13 +134,13 @@ const Register = () => {
                         </div>
 
                         <div className="pt-2 mt-6">
-                            <button type="submit" className="sign-up-login-btn">
+                            <button data-testid="signup" type="submit" className="sign-up-login-btn">
                                 SIGN UP
                             </button>
                         </div>
                     </form>
 
-                    <div className={`${registerStatus === "none" ? "hidden" : "block"} bg-red-600 w-max p-2 rounded-md cursor-default`}>
+                    <div data-testid="signup_error" className={`${registerStatus === "none" ? "hidden" : "block"} bg-red-600 w-max p-2 rounded-md cursor-default`}>
                         <p className="font-inter text-gray-200">{registerStatus}</p>
                     </div>
 
@@ -145,7 +154,7 @@ const Register = () => {
                 </div>
 
                 <div className="mt-6 font-inter font-light">
-                    By signing up, you agree to our <a href="/privacy" className="underline font-bold">Privacy Policy</a> and <a href="/terms" className="underline font-bold">Terms of Use</a>
+                    By signing up, you agree to our <Link to="/privacy" className="underline font-bold">Privacy Policy</Link> and <Link to="/terms" className="underline font-bold">Terms of Use</Link> 
                 </div>
             </div>
         </div>
