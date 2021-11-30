@@ -20,8 +20,8 @@ app.use(express.urlencoded({ extended: true }));
 const session = require('express-session');
 app.use(session(({
   secret: process.env.SESSION_SECRET,
-  saveUninitialized: false,
-  resave: false
+  saveUninitialized: true,
+  resave: true
 })));
 
 // Routes
