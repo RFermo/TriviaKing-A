@@ -210,7 +210,8 @@ const Play = () => {
                             <FaChevronRight className="text-gray-200 w-8 h-8 md:w-12 md:h-12 mx-auto right-bounce" />
                         </div>
 
-                        <button 
+                        <button
+                            data-testid="playbtn" 
                             className="bg-yellow-500 group px-4 py-4 xl:hover:bg-gray-800 transition duration-300 md:px-6 md:py-6 lg:px-8 lg:py-8 xl:px-10 xl:py-10 rounded-xl"
                             onClick={() => {
                                 setPlayButton(!playButton);
@@ -249,7 +250,7 @@ const Play = () => {
                             </div>
                                 
                             <div>
-                                <h1 className="font-inter text-center font-semibold !leading-normal text-lg md:text-xl lg:text-2xl 2xl:text-3xl">
+                                <h1 data-testid="question" className="font-inter text-center font-semibold !leading-normal text-lg md:text-xl lg:text-2xl 2xl:text-3xl">
                                     {decodeURIComponent(questions[currQuestion].question)}
                                 </h1>
                             </div>

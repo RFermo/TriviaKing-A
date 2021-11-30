@@ -79,7 +79,8 @@ const Login = () => {
                                 <label className="md:text-lg font-inter font-bold">Username</label>
                                 <FaUser className="absolute bottom-[11px] left-[20px]" />
                                 <input 
-                                    className="input-field" 
+                                    className="input-field"
+                                    data-testid="username-field" 
                                     type="text"
                                     required={true}
                                     onChange={(e) => setUsername(e.target.value)}
@@ -91,6 +92,7 @@ const Login = () => {
                                 <FaKey className="absolute bottom-[11px] left-[20px]" />
                                 <input 
                                     className="input-field" 
+                                    data-testid="password-field"
                                     type="password"
                                     required={true}
                                     onChange={(e) => setPassword(e.target.value)}
