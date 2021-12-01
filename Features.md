@@ -26,4 +26,4 @@
 
 - Authentication with Google has been implemented.
 
-
+- Added terms of use and privacy policy which is legal agreement that explains what kinds of personal information the site gathers from website visitors, how we use this information, and how we keep it safe.
