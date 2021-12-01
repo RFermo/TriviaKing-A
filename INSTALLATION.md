@@ -2,7 +2,7 @@
 
 [![node version][node-image]][node-url] [![npm version][npm-image]][npm-url] [![mysql version][mysql-image]][mysql-url]
 
-TriviaKing uses ReactJS (frontend), ExpressJS (backend), and MySQL
+Trivia King uses ReactJS (frontend), ExpressJS (backend), and MySQL.
 
 ## Prerequisites
 - `npm`
@@ -23,36 +23,36 @@ The frontend and backend are split into the client (frontend) and server (backen
     |__ server
 ```
 
-Open a terminal in the directory that TriviaKing was cloned into and run the following
+Open a terminal in the directory that Trivia King was cloned into and run the following:
 
 ```bash
 cd ./client && npm install && cd ../server && npm install
 ```
 
 ### Install MySQL
-Download and install MySQL for your operating system at [MySQL][mysql-install-url] website
+Download and install MySQL for your operating system at [MySQL][mysql-install-url] website.
 
 ## Setup Database
 ### Create and import database
-Create an empty database as found [here][mysql-create-database] and import the initial database using this [sql file][mysql-init-db]
+Create an empty database as found [here][mysql-create-database] and import the initial database using this [sql file][mysql-init-db].
 
-Creating and importing the database can be done via the command line
+Creating and importing the database can be done via the command line:
 ```bash
 mysql -u root -p -e "CREATE DATABASE trivia_king"
 mysql -u root -p trivia_king < ./server/db/trivia_king.sql
 ```
 
 ### Create user and grant permissions
-Create a mysql user as found [here][mysql-create-user] and don't forget to [grant privileges][mysql-grant-privileges] to the new mysql user
+Create a MySQL user as found [here][mysql-create-user] and don't forget to [grant privileges][mysql-grant-privileges] to the new MySQL user.
 
-### Update database configuraiton file
-Update the database configuration file to use the database and mysql user/password that you have created.
+### Update database configuration file
+Update the database configuration file to use the database and MySQL user/password that you have created.
 
 Database configuration file:
 [./server/db/connect.js][mysql-config-file]
 
 ### Start both the client and server
-Both client and server use `npm start`
+Both client and server use `npm start`.
 ```bash
 cd ./TriviaKing-A/client && npm start
 cd ./TriviaKing-A/server && npm start
