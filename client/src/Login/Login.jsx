@@ -3,12 +3,10 @@ import Axios from "axios";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import TKlogo from "../Main/images/TKLogo.png";
-
 import { GoogleLogin } from 'react-google-login';
 
-
-
 const Login = () => {
+    
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [loginStatus, setLoginStatus] = useState("none");

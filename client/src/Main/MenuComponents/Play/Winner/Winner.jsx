@@ -81,7 +81,7 @@ const Winner = (props) => {
 
                                 <ul className="flex flex-col list-disc list-inside space-y-3">
                                     <li className="text-xl xl:text-2xl font-inter">
-                                        User: <span className="font-semibold">RFermo98</span>
+                                        User: <span className="font-semibold">{userData.username}</span>
                                     </li>
                                     <li className="text-xl xl:text-2xl font-inter">
                                         Score: <span className="font-semibold">{props.score}</span>

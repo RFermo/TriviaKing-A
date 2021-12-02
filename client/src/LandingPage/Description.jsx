@@ -21,7 +21,7 @@ const Description = () => {
                             <FaCheckSquare className="w-6 h-6 text-white" />
                         </div>
                         <div>
-                            <h5 className="font-georama text-lg text-white">Ability to see your friends' scores</h5>
+                            <h5 className="font-georama text-lg text-white">Ability to track your performance as you play</h5>
                         </div>
                     </div>
 
