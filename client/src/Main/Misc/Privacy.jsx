@@ -3,7 +3,6 @@ import React from 'react'
 const Privacy = () => {
     
     return (
-        document.title="Privacy Terms"
         <div className="mt-6">
             <h1 className="font-inter text-center underline text-3xl">Privacy Policy</h1>
             <div className="w-4/5 mx-auto mt-8 text-lg font-inter font-semibold">
