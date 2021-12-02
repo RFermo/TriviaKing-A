@@ -1,6 +1,7 @@
 import React from 'react'
 
 const Terms = () => {
+    document.title="Terms and Conditions"
     return (
         <div className="mt-6">
             <h1 className="font-inter text-center underline text-3xl">Terms of Use</h1>
