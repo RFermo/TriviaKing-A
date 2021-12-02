@@ -28,8 +28,8 @@ const Terms = () => {
 <p><strong>CONDITIONS OF ACCESS</strong></p>
 <p>By using the Service, you agree to these Terms, and consent to our collection, use and disclosure practices, and other activities as described in our <a href="/privacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>. If you do not agree and consent, discontinue use of the Service. By using our Services, you represent and warrant that you have the legal capacity to enter into a contract in the jurisdiction where you reside.</p>
 <ol>
-<li>You shall select a username and a password when signing up to portions of the Service that require an account or Membership.</li>
-<li>You shall keep your username and the password personal and confidential, and you shall not disclose them to any third parties or other users.</li>
+<li>1.You shall select a username and a password when signing up to portions of the Service that require an account or Membership.</li>
+<li>2.You shall keep your username and the password personal and confidential, and you shall not disclose them to any third parties or other users.</li>
 <li>You shall not to use another user&rsquo;s username or password, or any other personal information of another user.</li>
 <li>You shall take care not to disclose strictly personal information.</li>
 <li>We reserve the option of removing:
