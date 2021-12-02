@@ -32,13 +32,13 @@ const Terms = () => {
 <li>2.You shall keep your username and the password personal and confidential, and you shall not disclose them to any third parties or other users.</li>
 <li>3.You shall not to use another user&rsquo;s username or password, or any other personal information of another user.</li>
 <li>4.You shall take care not to disclose strictly personal information.</li>
-<li>We reserve the option of removing:
+<li>5.We reserve the option of removing:
 <ol>
-<li>Content and/or user content published or present on the Service;</li>
-<li>Any user account that has not been used for more than six (6) months.</li>
+<li>• Content and/or user content published or present on the Service;</li>
+<li>• Any user account that has not been used for more than six (6) months.</li>
 </ol>
 </li>
-<li>5.You shall not to carry out any action likely to hinder the operation of the Service or undertake to disseminate or arrange for the dissemination of viruses, spam, logic bombs, software websites, etc.</li>
+<li>6.You shall not to carry out any action likely to hinder the operation of the Service or undertake to disseminate or arrange for the dissemination of viruses, spam, logic bombs, software websites, etc.</li>
 </ol>
 </section>             </div>
         </div>
