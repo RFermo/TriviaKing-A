@@ -1,6 +1,4 @@
-# UNIT/INTEGRATION TESTS
-
-The unit/integration tests for the latest commit can be found in the following Travis CI link: https://app.travis-ci.com/github/RFermo/TriviaKing-A
+[![Build Status](https://app.travis-ci.com/RFermo/TriviaKing-A.svg?branch=main)](https://app.travis-ci.com/RFermo/TriviaKing-A)
 
 # SUMMARY OF PROJECT
 
